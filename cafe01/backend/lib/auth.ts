@@ -3,9 +3,9 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import InstagramProvider from "next-auth/providers/instagram";
 import bcrypt from "bcryptjs";
-import connectToDatabase from "@/lib/mongodb";
-import User from "@/models/User";
-import Otp from "@/models/Otp";
+import connectToDatabase from "./mongodb";
+import User from "../models/User";
+import Otp from "../models/Otp";
 
 export const authOptions: NextAuthOptions = {
   providers: [
