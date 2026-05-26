@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+:root {
+  --background: #FCFBF8;
+  --foreground: #2C1E16;
+  --cafe-primary: #5c4033;
+  --cafe-secondary: #C5A059;
+  --cafe-accent: #8e6c4e;
+  --cafe-dark: #2C1E16;
+  --cafe-surface: #ffffff;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-cafe-primary: var(--cafe-primary);
+  --color-cafe-secondary: var(--cafe-secondary);
+  --color-cafe-accent: var(--cafe-accent);
+  --color-cafe-dark: var(--cafe-dark);
+  --color-cafe-surface: var(--cafe-surface);
+  
+  --font-serif: var(--font-playfair);
+  --font-sans: var(--font-inter);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* Hide scrollbar for cleaner look if requested, but generally keep it default */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.4s ease-out forwards;
+}
+
+/* ── Cart Animations ── */
+@keyframes cartBadgePop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.5); }
+  70%  { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+
+.cart-badge-pop {
+  animation: cartBadgePop 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
+}
+
+@keyframes cartItemAdded {
+  0%   { background-color: transparent; }
+  30%  { background-color: rgba(34, 197, 94, 0.15); }
+  100% { background-color: transparent; }
+}
+
+.cart-item-added {
+  animation: cartItemAdded 1.2s ease-out forwards;
+}
+
+/* ── Custom Scrollbar for Cart Sidebar ── */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(197, 160, 89, 0.3) transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: rgba(197, 160, 89, 0.3);
+  border-radius: 99px;
+}
+
+/* ── Checkout Loading Spinner ── */
+@keyframes checkoutSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ── Toast Progress Bar ── */
+@keyframes toastProgress {
+  from { width: 100%; }
+  to   { width: 0%; }
+}
+
+/* ── Cart Button Wiggle on Add ── */
+@keyframes cartWiggle {
+  0%,100% { transform: rotate(0deg); }
+  20%      { transform: rotate(-12deg) scale(1.2); }
+  40%      { transform: rotate(12deg) scale(1.2); }
+  60%      { transform: rotate(-8deg); }
+  80%      { transform: rotate(8deg); }
+}
+.cart-wiggle { animation: cartWiggle 0.6s ease-in-out; }
+
+/* ── Add to Cart Button Pulse ── */
+@keyframes addedPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(34,197,94,0.6); }
+  70%  { box-shadow: 0 0 0 10px rgba(34,197,94,0); }
+  100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+}
+.added-pulse { animation: addedPulse 0.8s ease-out; }
+
+
