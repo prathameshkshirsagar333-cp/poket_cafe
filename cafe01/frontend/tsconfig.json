@@ -19,8 +19,6 @@
       }
     ],
     "paths": {
-      "@/models/*": ["../backend/models/*"],
-      "@/lib/*": ["../backend/lib/*"],
       "@/*": ["./*"]
     }
   },
