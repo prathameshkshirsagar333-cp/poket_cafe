@@ -15,8 +15,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Cafe Express | Premium Food Delivery & Dining",
-  description: "Experience lightning-fast premium food delivery and dining with Cafe Express.",
+  title: "Poket Cafe | Premium Food Delivery & Dining",
+  description: "Experience lightning-fast premium food delivery and dining with Poket Cafe.",
 };
 
 export default function RootLayout({

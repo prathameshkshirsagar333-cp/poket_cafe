@@ -1,48 +1,27 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
 
 export default function Hero() {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const sectionRef = useRef<HTMLElement>(null);
-
-  // Parallax on mouse
-  useEffect(() => {
-    const handleMouse = (e: MouseEvent) => {
-      if (!sectionRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width - 0.5) * 24;
-      const y = ((e.clientY - rect.top) / rect.height - 0.5) * 16;
-      setMousePos({ x, y });
-    };
-    window.addEventListener("mousemove", handleMouse);
-    return () => window.removeEventListener("mousemove", handleMouse);
-  }, []);
-
   return (
     <section
       id="home"
-      ref={sectionRef}
-      className="relative w-full h-[90vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-[#1a120b]"
-      style={{ cursor: "default" }}
+      className="relative w-full h-[40vh] sm:h-[50vh] md:h-[60vh] lg:h-[65vh] min-h-[350px] flex items-center justify-center overflow-hidden bg-black"
     >
-      {/* ── Background with parallax ── */}
-      <div
-        className="absolute inset-0 z-0 transition-transform duration-75 ease-out"
-        style={{
-          transform: `translate(${mousePos.x * 0.4}px, ${mousePos.y * 0.4}px) scale(1.06)`,
-        }}
-      >
+      {/* Container starts exactly below navbar to show the cafe sign clearly */}
+      <div className="absolute inset-x-0 bottom-0 top-[80px]">
         <Image
-          src="/premium-cafe.png"
-          alt="Premium Cafe Interior"
+          src="/poket_cafe_hero_4k.png"
+          alt="Poket Cafe Exterior Night"
           fill
           unoptimized
-          className="object-cover object-center"
+          className="object-cover object-top brightness-90 contrast-125 saturate-110"
           priority
+          sizes="100vw"
         />
       </div>
+      {/* Dark gradient overlay to enhance the night-time aesthetic and make the neon pop */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/10 to-background/80 pointer-events-none" />
     </section>
   );
 }

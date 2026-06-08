@@ -17,7 +17,7 @@ export default function Footer() {
               <div className="w-10 h-10 rounded-full bg-cafe-secondary text-cafe-dark flex items-center justify-center">
                 <FaCoffee size={20} />
               </div>
-              <span className="font-serif text-3xl font-bold">Brew&apos;s</span>
+              <span className="font-serif text-3xl font-bold">Poket Cafe</span>
             </div>
             <p className="text-gray-400 leading-loose mb-6">
               Crafting perfect moments, one cup at a time. We source our beans ethically and roast them locally for the best flavor.
@@ -84,15 +84,15 @@ export default function Footer() {
             <div className="space-y-4 text-gray-400 font-medium">
               <div className="flex items-start gap-4">
                 <FaMapMarkerAlt className="text-cafe-secondary mt-1 flex-shrink-0" />
-                <p>123 Coffee Avenue,<br/>Brewery District,<br/>New York, NY 10012</p>
+                <p>Main Road,<br/>Sangamner,<br/>Maharashtra 422605</p>
               </div>
               <div className="flex items-center gap-4 group">
                 <FaPhoneAlt className="text-cafe-secondary flex-shrink-0 group-hover:scale-110 transition-transform" />
-                <a href="tel:+1234567890" className="hover:text-white transition-colors">+1 (234) 567-890</a>
+                <a href="tel:+917083511063" className="hover:text-white transition-colors">+91 70835 11063</a>
               </div>
               <div className="flex items-center gap-4 group">
                 <FaEnvelope className="text-cafe-secondary flex-shrink-0 group-hover:scale-110 transition-transform" />
-                <a href="mailto:hello@brewscafe.com" className="hover:text-white transition-colors">hello@brewscafe.com</a>
+                <a href="mailto:hello@poketcafe.com" className="hover:text-white transition-colors">hello@poketcafe.com</a>
               </div>
             </div>
           </div>
@@ -100,7 +100,7 @@ export default function Footer() {
 
         {/* Footer Bottom */}
         <div className="border-t border-white/10 pt-8 mt-12 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500 font-medium font-sans">
-          <p>&copy; 2026 Brew's Cafe. All rights reserved.</p>
+          <p>&copy; 2026 Poket Cafe. All rights reserved.</p>
           <div className="mt-4 md:mt-0 flex space-x-6">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-white transition-colors">Terms of Service</a>

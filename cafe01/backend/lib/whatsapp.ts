@@ -31,7 +31,7 @@ export const sendWhatsAppOrderConfirmation = async (
     // Note: For production, using WhatsApp Templates is recommended to send to users outside the 24h window.
     // Here we use a generic text message for demonstration, assuming the user initiated or template is not strictly required for test.
     const messageText = `🍽️ Order Confirmed!
-Thank you for ordering from Cafe Express ☕
+Thank you for ordering from Poket Cafe ☕
 
 Order Details:
 - Order ID: #${orderNumber}

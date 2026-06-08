@@ -4,11 +4,11 @@ import { FaInstagram } from "react-icons/fa";
 
 export default function Gallery() {
   const images = [
-    { src: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=600&auto=format&fit=crop", alt: "Coffee bean roasting", className: "col-span-1 row-span-2 h-full" },
-    { src: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=600&auto=format&fit=crop", alt: "Latte art", className: "col-span-1 row-span-1 h-64" },
-    { src: "https://images.unsplash.com/photo-1481833761820-0509d3217039?q=80&w=600&auto=format&fit=crop", alt: "Cafe interior", className: "col-span-1 row-span-1 h-64" },
-    { src: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=600&auto=format&fit=crop", alt: "Pour over coffee", className: "col-span-2 row-span-1 h-64 sm:h-80" },
-    { src: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=600&auto=format&fit=crop", alt: "Coffee cups", className: "col-span-1 row-span-1 h-64 sm:h-80" },
+    { src: "/gallery/1.png", alt: "Espresso machine pouring coffee", className: "col-span-1 row-span-2 h-full" },
+    { src: "/gallery/2.png", alt: "Cozy cafe exterior window", className: "col-span-1 row-span-1 h-64" },
+    { src: "/gallery/3.png", alt: "Intricate latte art with dried flowers", className: "col-span-1 row-span-1 h-64" },
+    { src: "/gallery/4.png", alt: "Bohemian cafe interior", className: "col-span-2 row-span-1 h-64 sm:h-80" },
+    { src: "/gallery/5.png", alt: "Barista tamping coffee grounds", className: "col-span-1 row-span-1 h-64 sm:h-80" },
   ];
 
   return (
@@ -40,7 +40,7 @@ export default function Gallery() {
         
         <div className="mt-12 text-center">
           <button className="px-8 py-3 rounded-full border border-cafe-primary text-cafe-primary hover:bg-cafe-primary hover:text-white transition-all duration-300 font-medium tracking-wide inline-flex items-center gap-2">
-            <FaInstagram /> Follow @brews_cafe
+            <FaInstagram /> Follow @poket_cafe
           </button>
         </div>
       </div>

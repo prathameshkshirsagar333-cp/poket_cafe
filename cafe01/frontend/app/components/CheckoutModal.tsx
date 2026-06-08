@@ -159,7 +159,7 @@ export default function CheckoutModal() {
           key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_1DP5mmOlF5G5ag",
           amount: Math.round(grandTotal * 100),
           currency: "INR",
-          name: "Cafe Express",
+          name: "Poket Cafe",
           description: "Order Checkout",
           order_id: data.razorpayOrderId,
           handler: async function (response: any) {

@@ -73,8 +73,8 @@ export default function AdminOrders() {
       <div className="max-w-7xl mx-auto space-y-8">
         <div className="flex justify-between items-center bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
-            <p className="text-gray-500 mt-1">Manage all Cafe Express orders</p>
+            <h1 className="text-3xl font-bold text-gray-900">Orders</h1>
+            <p className="text-gray-500 mt-1">Manage all Poket Cafe orders</p>
           </div>
           <div className="flex gap-2">
             {["All", "Pending", "Paid", "Processing", "Completed", "Cancelled"].map(

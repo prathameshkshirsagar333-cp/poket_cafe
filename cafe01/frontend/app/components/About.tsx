@@ -53,7 +53,7 @@ export default function About() {
             />
             
             <p className="text-gray-600 text-lg mb-8 leading-relaxed">
-              Founded in 2014, Brew&apos;s Cafe has been dedicated to the art of coffee. We believe that a great cup of coffee can inspire creativity, spark conversations, and bring people together. Our master roasters carefully select only the finest arabica beans.
+              Welcome to Poket Cafe! Established with a passion for bringing people together over exceptional coffee, Poket Cafe is more than just a place to grab a drink—it&apos;s a vibrant community hub. Our journey began with a simple idea: to craft the perfect cup while offering a warm, inviting pocket of peace in a busy world. Our master roasters carefully select only the finest arabica beans.
             </p>
 
             <div className="space-y-8">

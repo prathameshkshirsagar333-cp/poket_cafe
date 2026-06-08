@@ -116,14 +116,14 @@ export const sendOrderConfirmationEmail = async (
   const toEmail = useResend && isTesting ? (process.env.RESEND_TEST_EMAIL || email) : email;
 
   const mailOptions = {
-    from: `"Cafe Express" <${fromEmail}>`,
+    from: `"Poket Cafe" <${fromEmail}>`,
     to: toEmail,
     subject: `Order Confirmed! #${orderNumber}`,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eaeaec; border-radius: 10px;">
         <h2 style="color: #4a3b32; text-align: center;">🍽️ Order Confirmed!</h2>
         <p style="color: #555; font-size: 16px;">Hi ${customerName},</p>
-        <p style="color: #555; font-size: 16px;">Thank you for ordering from Cafe Express ☕.</p>
+        <p style="color: #555; font-size: 16px;">Thank you for ordering from Poket Cafe ☕.</p>
         
         <div style="background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin: 20px 0;">
           <h3 style="color: #4a3b32; margin-top: 0;">Order Details:</h3>
