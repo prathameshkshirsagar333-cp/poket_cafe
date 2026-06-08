@@ -7,8 +7,8 @@ export default withAuth({
 });
 
 export const config = {
-  // Global Access Control: Protect routes automatically, except public pages and assets
+  // Protect all routes including home page, except auth pages, apis and static assets
   matcher: [
-    "/((?!$|cart|checkout|login|signup|api/auth|api/signup|api/cart|api/orders|api/webhooks|_next/static|_next/image|favicon.ico|.*\\..*).*)",
+    "/((?!login|signup|api|_next/static|_next/image|favicon.ico|.*\\..*).*)"
   ],
 };
