@@ -1,5 +1,9 @@
-# Dependencies
+# Dependencies and builds
 node_modules/
+dist/
+coverage/
+*.log
 
-# Local Environment Secrets
+# Local environment secrets
 .env*
+!.env.example

@@ -16,9 +16,9 @@ type LoginForm = {
 function LoginPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/";
-  const urlSuccess = searchParams.get("success") || "";
-  const urlError = searchParams.get("error") || "";
+  const callbackUrl = searchParams?.get("callbackUrl") || "/";
+  const urlSuccess = searchParams?.get("success") || "";
+  const urlError = searchParams?.get("error") || "";
 
   // Authentication Steps: "LOGIN" (Email/Pass) -> "OTP" (Verification)
   const [step, setStep] = useState<"LOGIN" | "OTP">("LOGIN");
