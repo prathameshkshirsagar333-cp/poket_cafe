@@ -17,6 +17,11 @@ import {
   FaLock,
   FaReceipt,
   FaChevronRight,
+  FaPrint,
+  FaShoppingBag,
+  FaHome,
+  FaCheck,
+  FaClock,
 } from "react-icons/fa";
 
 type PaymentMethod = "upi" | "card" | "netbanking" | "cod";
@@ -67,6 +72,7 @@ export default function CheckoutModal() {
   const [orderResult, setOrderResult] = useState<{
     orderNumber: string;
     total: number;
+    items: any[];
   } | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -168,6 +174,7 @@ export default function CheckoutModal() {
             setOrderResult({
               orderNumber: data.order.orderNumber,
               total: data.order.total,
+              items: [...cartItems],
             });
             await clearCart();
             setStep("success");
@@ -194,6 +201,7 @@ export default function CheckoutModal() {
         setOrderResult({
           orderNumber: data.order.orderNumber,
           total: data.order.total,
+          items: [...cartItems],
         });
         await clearCart();
         setStep("success");
@@ -310,68 +318,185 @@ export default function CheckoutModal() {
   // SUCCESS SCREEN
   // ─────────────────────────────────────────────
   if (step === "success" && orderResult) {
+    const today = new Date().toLocaleDateString("en-IN", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
     return (
-      <div className="min-h-screen bg-[#1A110C] flex items-center justify-center px-4">
-        <div className="max-w-md w-full text-center space-y-6">
+      <div className="min-h-screen bg-[#1A110C]/90 backdrop-blur-md flex items-center justify-center px-4 py-12 relative overflow-y-auto">
+        <div className="max-w-xl w-full text-center space-y-8 py-6">
+          {/* Animated Success Badge */}
           <div className="relative">
-            <div className="w-28 h-28 rounded-full bg-green-500/10 flex items-center justify-center mx-auto">
-              <FaCheckCircle size={56} className="text-green-400" />
+            <div className="w-24 h-24 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center mx-auto shadow-lg shadow-green-500/10">
+              <FaCheckCircle size={52} className="text-green-400" />
             </div>
             {/* Ripple rings */}
-            <span className="absolute inset-0 flex items-center justify-center">
-              <span className="w-28 h-28 rounded-full bg-green-500/20 animate-ping" />
+            <span className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <span className="w-24 h-24 rounded-full bg-green-500/20 animate-ping" />
             </span>
           </div>
 
+          {/* Heading */}
           <div>
-            <h1 className="text-white font-bold text-3xl">Order Placed! 🎉</h1>
-            <p className="text-white/60 text-sm mt-2">
-              Thank you for your order. We're preparing it now!
+            <h1 className="text-white font-black text-3xl md:text-4xl tracking-tight" style={{ fontFamily: "var(--font-serif)" }}>
+              Order Placed Successfully! 🎉
+            </h1>
+            <p className="text-white/60 text-sm mt-2 font-medium">
+              Thank you for dining with Poket Cafe. We are preparing your delicious order!
             </p>
           </div>
 
-          <div className="bg-[#2C1E16] rounded-2xl p-6 text-left space-y-3">
-            <div className="flex justify-between">
-              <span className="text-white/60 text-sm">Order Number</span>
-              <span className="text-cafe-secondary font-bold text-sm font-mono">
-                {orderResult.orderNumber}
-              </span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-white/60 text-sm">Amount Paid</span>
-              <span className="text-white font-bold">₹{orderResult.total}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-white/60 text-sm">Payment Method</span>
-              <span className="text-white font-medium capitalize">
-                {paymentMethod === "cod"
-                  ? "Cash on Delivery"
-                  : paymentMethod.toUpperCase()}
-              </span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-white/60 text-sm">Status</span>
-              <span className="text-green-400 font-bold text-sm flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                {paymentMethod === "cod" ? "Confirmed" : "Paid"}
-              </span>
+          {/* Order Tracking Progress Timeline */}
+          <div className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center shadow-lg">
+            <h3 className="text-white font-bold text-xs uppercase tracking-widest text-left mb-6 text-white/50">
+              Order Status Track
+            </h3>
+            <div className="relative flex items-center justify-between max-w-sm mx-auto">
+              {/* Connector line */}
+              <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-[2px] bg-white/10 z-0" />
+              
+              {/* Step 1: Placed */}
+              <div className="relative z-10 flex flex-col items-center gap-2">
+                <div className="w-8 h-8 rounded-full bg-green-500 text-[#1A110C] flex items-center justify-center shadow-md">
+                  <FaCheck size={12} className="font-bold" />
+                </div>
+                <span className="text-[11px] font-bold text-green-400">Placed</span>
+              </div>
+
+              {/* Step 2: Preparing */}
+              <div className="relative z-10 flex flex-col items-center gap-2">
+                <div className="w-8 h-8 rounded-full bg-cafe-secondary text-[#1A110C] flex items-center justify-center shadow-md animate-pulse">
+                  <FaClock size={12} />
+                </div>
+                <span className="text-[11px] font-bold text-cafe-secondary">Preparing</span>
+              </div>
+
+              {/* Step 3: Ready */}
+              <div className="relative z-10 flex flex-col items-center gap-2">
+                <div className="w-8 h-8 rounded-full bg-white/10 border border-white/20 text-white/40 flex items-center justify-center shadow-md">
+                  <FaMotorcycle size={12} />
+                </div>
+                <span className="text-[11px] font-bold text-white/40">Ready</span>
+              </div>
             </div>
           </div>
 
-          <div className="flex flex-col gap-3 pt-2">
+          {/* Receipt Card */}
+          <div className="bg-[#2C1E16]/95 border border-[#C5A059]/20 rounded-3xl p-6 relative overflow-hidden shadow-2xl text-left before:content-[''] before:absolute before:inset-x-0 before:top-0 before:h-2 before:bg-[radial-gradient(circle_at_bottom,_transparent_50%,_rgba(197,160,89,0.2)_50%)] before:bg-[length:12px_8px] before:bg-repeat-x">
+            {/* Receipt Header */}
+            <div className="text-center pt-2">
+              <h2 className="text-[#C5A059] font-black text-2xl tracking-widest uppercase" style={{ fontFamily: "var(--font-serif)" }}>
+                Poket Cafe
+              </h2>
+              <p className="text-white/40 text-[9px] uppercase tracking-wider font-bold mt-1">
+                Premium Dining & Food Delivery
+              </p>
+              <div className="border-b border-dashed border-white/10 my-4" />
+            </div>
+
+            {/* Receipt Details Info */}
+            <div className="space-y-2 text-xs text-white/50 font-medium">
+              <div className="flex justify-between">
+                <span>Receipt Date:</span>
+                <span className="text-white/80">{today}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Order ID:</span>
+                <span className="text-[#C5A059] font-bold font-mono">{orderResult.orderNumber}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Payment Mode:</span>
+                <span className="text-white/80 uppercase">
+                  {paymentMethod === "cod" ? "Cash on Delivery" : paymentMethod}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span>Payment Status:</span>
+                <span className="text-green-400 font-bold">
+                  {paymentMethod === "cod" ? "Confirmed" : "Paid"}
+                </span>
+              </div>
+            </div>
+
+            <div className="border-b border-dashed border-white/10 my-4" />
+
+            {/* Receipt Ordered Items */}
+            <h3 className="text-white font-bold text-xs uppercase tracking-wider mb-3 text-white/40">
+              Ordered Items
+            </h3>
+            <div className="space-y-3">
+              {orderResult.items && orderResult.items.map((item, idx) => (
+                <div key={idx} className="flex justify-between items-center text-sm">
+                  <div className="flex items-center gap-3">
+                    {item.image && (
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-8 h-8 rounded-lg object-cover border border-white/10 flex-shrink-0"
+                      />
+                    )}
+                    <div>
+                      <p className="text-white font-bold">{item.name}</p>
+                      <p className="text-white/40 text-xs font-semibold">₹{item.price} x {item.quantity}</p>
+                    </div>
+                  </div>
+                  <span className="text-[#C5A059] font-black">
+                    ₹{item.price * item.quantity}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <div className="border-b border-dashed border-[#C5A059]/30 my-4" />
+
+            {/* Receipt Grand Total */}
+            <div className="flex justify-between items-center">
+              <span className="text-white font-black text-base uppercase tracking-wider">
+                Total Amount
+              </span>
+              <span className="text-[#C5A059] font-black text-2xl font-serif">
+                ₹{orderResult.total}
+              </span>
+            </div>
+            
+            <p className="text-[10px] text-center text-white/30 font-medium mt-4 tracking-wide italic">
+              Thank you for ordering! Visit us again soon.
+            </p>
+          </div>
+
+          {/* Action Buttons CTAs */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
             {session && (
               <button
                 onClick={() => router.push("/orders")}
-                className="w-full py-3.5 bg-cafe-secondary text-[#1A110C] rounded-2xl font-bold hover:brightness-110 transition-all"
+                style={{ backgroundColor: "#C5A059", color: "#1A110C" }}
+                className="w-full flex items-center justify-center gap-2.5 py-4 rounded-2xl font-black text-sm uppercase tracking-wider hover:brightness-110 active:scale-95 transition-all shadow-xl"
               >
+                <FaShoppingBag size={14} />
                 View My Orders
               </button>
             )}
             <button
               onClick={() => router.push("/")}
-              className="w-full py-3.5 bg-white/10 text-white rounded-2xl font-bold hover:bg-white/20 transition-all"
+              className="w-full flex items-center justify-center gap-2.5 py-4 bg-white/10 text-white border border-white/15 rounded-2xl font-black text-sm uppercase tracking-wider hover:bg-white/15 active:scale-95 transition-all shadow-md"
             >
+              <FaHome size={14} />
               Back to Home
+            </button>
+          </div>
+
+          {/* Print Invoice Link */}
+          <div>
+            <button
+              onClick={() => window.print()}
+              className="inline-flex items-center gap-2 text-white/40 hover:text-white transition-colors duration-200 text-xs font-bold uppercase tracking-widest pt-2 group"
+            >
+              <FaPrint size={12} className="group-hover:scale-110 transition-transform duration-200" />
+              Print Receipt / Invoice
             </button>
           </div>
         </div>
