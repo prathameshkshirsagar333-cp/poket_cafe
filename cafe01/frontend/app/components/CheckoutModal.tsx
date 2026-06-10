@@ -403,17 +403,17 @@ export default function CheckoutModal() {
         {/* Buttons positioned relative to the outer parent header */}
         <button
           onClick={() => (step === "payment" ? setStep("details") : router.back())}
-          className="absolute top-6 left-4 sm:left-8 z-20 inline-flex items-center gap-2 text-white/70 hover:text-cafe-secondary transition-colors duration-200 text-xs font-bold uppercase tracking-wider bg-black/40 backdrop-blur-md px-3.5 py-2 rounded-full border border-white/10 group"
+          className="absolute top-6 left-4 sm:left-8 z-20 inline-flex items-center gap-2 text-white/70 hover:text-cafe-secondary transition-colors duration-200 text-sm font-semibold group"
         >
           <FaArrowLeft
-            size={10}
+            size={12}
             className="group-hover:-translate-x-1 transition-transform duration-200"
           />
           {step === "payment" ? "Back to Details" : "Back to Cart"}
         </button>
         
         <div 
-          className="absolute top-6 right-4 sm:right-8 z-20 text-cafe-secondary font-black text-sm uppercase tracking-widest bg-black/40 backdrop-blur-md px-4 py-2 rounded-full border border-cafe-secondary/20"
+          className="absolute top-6 right-4 sm:right-8 z-20 text-cafe-secondary font-bold text-sm uppercase tracking-widest"
           style={{ fontFamily: "var(--font-serif)" }}
         >
           Poket Cafe

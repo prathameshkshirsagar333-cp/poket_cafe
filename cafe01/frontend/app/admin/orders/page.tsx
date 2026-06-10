@@ -92,10 +92,10 @@ export default function AdminOrders() {
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto flex flex-col items-center">
           <Link
             href="/"
-            className="absolute top-4 left-4 sm:left-8 inline-flex items-center gap-2 text-white/70 hover:text-cafe-secondary transition-colors duration-200 text-xs font-bold uppercase tracking-wider bg-black/40 backdrop-blur-md px-3.5 py-2 rounded-full border border-white/10 group"
+            className="absolute top-6 left-4 sm:left-8 z-20 inline-flex items-center gap-2 text-white/70 hover:text-cafe-secondary transition-colors duration-200 text-sm font-semibold group"
           >
             <FaArrowLeft
-              size={10}
+              size={12}
               className="group-hover:-translate-x-1 transition-transform duration-200"
             />
             Home
