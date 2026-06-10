@@ -2,6 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
+import Image from "next/image";
+import { FaArrowLeft } from "react-icons/fa";
 
 type Order = {
   _id: string;
@@ -69,14 +72,58 @@ export default function AdminOrders() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8 pt-24">
-      <div className="max-w-7xl mx-auto space-y-8">
-        <div className="flex justify-between items-center bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+    <div className="min-h-screen bg-[#FCFBF8]">
+      {/* ── Page Header ── */}
+      <div
+        className="relative w-full h-[35vh] min-h-[260px] flex items-center justify-center overflow-hidden bg-black pt-[80px] border-b border-white/5"
+      >
+        <div className="absolute inset-0">
+          <Image
+            src="/poket_cafe_hero_4k.png"
+            alt="Poket Cafe"
+            fill
+            unoptimized
+            className="object-cover object-top brightness-[0.5] contrast-125 saturate-110"
+            priority
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-[#FCFBF8] pointer-events-none" />
+        
+        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto flex flex-col items-center">
+          <Link
+            href="/"
+            className="absolute top-4 left-4 sm:left-8 inline-flex items-center gap-2 text-white/70 hover:text-cafe-secondary transition-colors duration-200 text-xs font-bold uppercase tracking-wider bg-black/40 backdrop-blur-md px-3.5 py-2 rounded-full border border-white/10 group"
+          >
+            <FaArrowLeft
+              size={10}
+              className="group-hover:-translate-x-1 transition-transform duration-200"
+            />
+            Home
+          </Link>
+
+          <h2 
+            className="text-white font-black text-3xl sm:text-4xl md:text-5xl tracking-widest uppercase filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
+            style={{ fontFamily: "var(--font-serif)" }}
+          >
+            Poket Cafe
+          </h2>
+          <div className="h-[2px] w-20 bg-cafe-secondary my-3 rounded-full" />
+          <h1 className="text-cafe-secondary font-black text-xl sm:text-2xl uppercase tracking-wider">
+            Admin Panel
+          </h1>
+          <p className="text-white/60 text-xs sm:text-sm mt-1 font-semibold">
+            Manage all Poket Cafe orders
+          </p>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto space-y-8 p-4 sm:p-6 lg:p-8 mt-4">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Orders</h1>
-            <p className="text-gray-500 mt-1">Manage all Poket Cafe orders</p>
+            <h1 className="text-2xl font-bold text-gray-900">Order Management</h1>
+            <p className="text-gray-500 text-sm mt-1">Filter and update customer orders</p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-wrap">
             {["All", "Pending", "Paid", "Processing", "Completed", "Cancelled"].map(
               (f) => (
                 <button

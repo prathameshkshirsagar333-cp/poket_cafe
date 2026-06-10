@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { useCart } from "@/app/context/CartContext";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import {
   FaArrowLeft,
   FaCheckCircle,
@@ -383,50 +384,78 @@ export default function CheckoutModal() {
   // ─────────────────────────────────────────────
   return (
     <div className="min-h-screen bg-[#1A110C]">
-      {/* Header */}
-      <header className="sticky top-0 z-10 bg-[#1A110C]/95 backdrop-blur-xl border-b border-white/10 px-4 py-4">
-        <div className="max-w-5xl mx-auto flex items-center justify-between">
+      {/* ── Page Header ── */}
+      <div
+        className="relative w-full h-[35vh] min-h-[260px] flex items-center justify-center overflow-hidden bg-black pt-[80px] border-b border-white/5"
+      >
+        <div className="absolute inset-0">
+          <Image
+            src="/poket_cafe_hero_4k.png"
+            alt="Poket Cafe"
+            fill
+            unoptimized
+            className="object-cover object-top brightness-[0.5] contrast-125 saturate-110"
+            priority
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-[#1A110C] pointer-events-none" />
+        
+        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto flex flex-col items-center">
           <button
             onClick={() => (step === "payment" ? setStep("details") : router.back())}
-            className="flex items-center gap-2 text-white/70 hover:text-white transition-colors text-sm font-medium"
+            className="absolute top-4 left-4 sm:left-8 inline-flex items-center gap-2 text-white/70 hover:text-cafe-secondary transition-colors duration-200 text-xs font-bold uppercase tracking-wider bg-black/40 backdrop-blur-md px-3.5 py-2 rounded-full border border-white/10 group"
           >
-            <FaArrowLeft size={14} />
+            <FaArrowLeft
+              size={10}
+              className="group-hover:-translate-x-1 transition-transform duration-200"
+            />
             {step === "payment" ? "Back to Details" : "Back to Cart"}
           </button>
-          <h1 className="text-white font-bold text-lg">Checkout</h1>
-          <div className="flex items-center gap-2 text-white/40 text-xs font-medium">
+          
+          <div className="absolute top-4 right-4 sm:right-8 flex items-center gap-2 text-white/60 text-xs font-bold uppercase tracking-wider bg-black/40 backdrop-blur-md px-3.5 py-2 rounded-full border border-white/10">
             <FaLock size={10} />
             Secure
           </div>
-        </div>
 
-        {/* Step Progress */}
-        <div className="max-w-5xl mx-auto mt-4 flex items-center gap-2">
-          {(["details", "payment"] as Step[]).map((s, i) => (
-            <div key={s} className="flex items-center gap-2 flex-1">
-              <div
-                className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
-                  step === s
-                    ? "bg-cafe-secondary text-[#1A110C]"
-                    : i < (step === "payment" ? 1 : 0)
-                    ? "bg-green-500 text-white"
-                    : "bg-white/10 text-white/40"
-                }`}
-              >
-                {i < (step === "payment" ? 1 : 0) ? "✓" : i + 1}
+          <h2 
+            className="text-white font-black text-3xl sm:text-4xl md:text-5xl tracking-widest uppercase filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
+            style={{ fontFamily: "var(--font-serif)" }}
+          >
+            Poket Cafe
+          </h2>
+          <div className="h-[2px] w-20 bg-cafe-secondary my-3 rounded-full" />
+          <h1 className="text-cafe-secondary font-black text-xl sm:text-2xl uppercase tracking-wider">
+            Checkout
+          </h1>
+          
+          {/* Step Progress inside Header */}
+          <div className="mt-4 flex items-center gap-2 min-w-[280px]">
+            {(["details", "payment"] as Step[]).map((s, i) => (
+              <div key={s} className="flex items-center gap-2 flex-1">
+                <div
+                  className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold transition-all ${
+                    step === s
+                      ? "bg-cafe-secondary text-[#1A110C]"
+                      : i < (step === "payment" ? 1 : 0)
+                      ? "bg-green-500 text-white"
+                      : "bg-white/10 text-white/40"
+                  }`}
+                >
+                  {i < (step === "payment" ? 1 : 0) ? "✓" : i + 1}
+                </div>
+                <span
+                  className={`text-[11px] font-bold uppercase tracking-wider ${
+                    step === s ? "text-white" : "text-white/40"
+                  }`}
+                >
+                  {s === "details" ? "Details" : "Payment"}
+                </span>
+                {i < 1 && <div className="flex-1 h-px bg-white/20 mx-1" />}
               </div>
-              <span
-                className={`text-xs font-medium capitalize hidden sm:block ${
-                  step === s ? "text-white" : "text-white/40"
-                }`}
-              >
-                {s === "details" ? "Order Details" : "Payment"}
-              </span>
-              {i < 1 && <div className="flex-1 h-px bg-white/10 mx-1" />}
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </header>
+      </div>
 
       <div className="max-w-5xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-8">
         {/* ── STEP 1: ORDER DETAILS ── */}

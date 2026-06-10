@@ -390,9 +390,9 @@ function LoginPageContent() {
         {/* Right Side: Image Panel */}
         <div className="hidden md:block w-1/2 relative overflow-hidden bg-cafe-dark group">
           <img
-            src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=1200&auto=format&fit=crop"
-            alt="Coffee Art"
-            className="w-full h-full object-cover scale-100 group-hover:scale-110 transition-transform duration-[15000ms] ease-linear"
+            src="/poket_cafe_hero_4k.png"
+            alt="Poket Cafe storefront at night"
+            className="w-full h-full object-cover object-top scale-100 group-hover:scale-110 transition-transform duration-[15000ms] ease-linear brightness-[0.7]"
           />
           <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-transparent to-black/80 pointer-events-none" />
           

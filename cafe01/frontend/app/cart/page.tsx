@@ -3,6 +3,7 @@
 import { useCart } from "@/app/context/CartContext";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import {
   FaShoppingBag,
@@ -88,45 +89,47 @@ export default function CartPage() {
     >
       {/* ── Page Header ── */}
       <div
-        style={{
-          background:
-            "linear-gradient(135deg, #1A110C 0%, #2C1E16 50%, #1A110C 100%)",
-          borderBottom: "1px solid rgba(197,160,89,0.15)",
-        }}
-        className="pt-28 pb-10 px-4"
+        className="relative w-full h-[35vh] min-h-[260px] flex items-center justify-center overflow-hidden bg-black pt-[80px] border-b border-white/5"
       >
-        <div className="max-w-7xl mx-auto">
+        <div className="absolute inset-0">
+          <Image
+            src="/poket_cafe_hero_4k.png"
+            alt="Poket Cafe"
+            fill
+            unoptimized
+            className="object-cover object-top brightness-[0.5] contrast-125 saturate-110"
+            priority
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-[#100B07] pointer-events-none" />
+        
+        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto flex flex-col items-center">
           <Link
             href="/#menu"
-            className="inline-flex items-center gap-2 text-white/50 hover:text-cafe-secondary transition-colors duration-200 text-sm font-semibold mb-6 group"
+            className="absolute top-4 left-4 sm:left-8 inline-flex items-center gap-2 text-white/70 hover:text-cafe-secondary transition-colors duration-200 text-xs font-bold uppercase tracking-wider bg-black/40 backdrop-blur-md px-3.5 py-2 rounded-full border border-white/10 group"
           >
             <FaArrowLeft
-              size={12}
+              size={10}
               className="group-hover:-translate-x-1 transition-transform duration-200"
             />
             Continue Shopping
           </Link>
-          <div className="flex items-center gap-4">
-            <div
-              style={{ backgroundColor: "rgba(197,160,89,0.15)" }}
-              className="w-14 h-14 rounded-2xl flex items-center justify-center"
-            >
-              <FaShoppingBag style={{ color: "#C5A059" }} size={24} />
-            </div>
-            <div>
-              <h1
-                className="text-white font-black text-4xl md:text-5xl tracking-tight"
-                style={{ fontFamily: "var(--font-serif)" }}
-              >
-                Your Cart
-              </h1>
-              <p className="text-white/40 text-sm mt-1 font-medium">
-                {cartCount > 0
-                  ? `${cartCount} item${cartCount !== 1 ? "s" : ""} ready for checkout`
-                  : "Your cart is waiting to be filled"}
-              </p>
-            </div>
-          </div>
+
+          <h2 
+            className="text-white font-black text-3xl sm:text-4xl md:text-5xl tracking-widest uppercase filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
+            style={{ fontFamily: "var(--font-serif)" }}
+          >
+            Poket Cafe
+          </h2>
+          <div className="h-[2px] w-20 bg-cafe-secondary my-3 rounded-full" />
+          <h1 className="text-cafe-secondary font-black text-xl sm:text-2xl uppercase tracking-wider">
+            Your Cart
+          </h1>
+          <p className="text-white/60 text-xs sm:text-sm mt-1 font-semibold">
+            {cartCount > 0
+              ? `${cartCount} item${cartCount !== 1 ? "s" : ""} ready for checkout`
+              : "Your cart is waiting to be filled"}
+          </p>
         </div>
       </div>
 

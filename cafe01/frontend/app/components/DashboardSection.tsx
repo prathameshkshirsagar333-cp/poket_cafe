@@ -38,12 +38,8 @@ export default function DashboardSection() {
     : session?.user?.email?.[0]?.toUpperCase() ?? "U";
 
   return (
-    <section id="dashboard" className="w-full bg-[#FCFBF8] py-16 px-4 sm:px-6 lg:px-8 border-b border-cafe-primary/10">
+    <section id="dashboard" className="w-full bg-[#FCFBF8] py-10 px-4 sm:px-6 lg:px-8 border-b border-cafe-primary/10">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col mb-12 items-center text-center">
-          <p className="text-cafe-secondary font-bold tracking-widest uppercase text-sm mb-3">Your Account</p>
-          <h2 className="text-4xl font-serif font-bold text-cafe-dark">Dashboard Overview</h2>
-        </div>
 
         {/* Dashboard Header */}
         <div className="bg-white rounded-3xl shadow-xl border border-cafe-primary/10 p-8 md:p-12 mb-8 flex flex-col md:flex-row items-center justify-between gap-6 animate-fade-in-up">
