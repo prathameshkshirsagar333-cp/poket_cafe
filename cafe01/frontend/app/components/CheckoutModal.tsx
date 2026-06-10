@@ -386,7 +386,7 @@ export default function CheckoutModal() {
     <div className="min-h-screen bg-[#1A110C]">
       {/* ── Page Header ── */}
       <div
-        className="relative w-full h-[35vh] min-h-[260px] flex items-center justify-center overflow-hidden bg-black pt-[80px] border-b border-white/5"
+        className="relative w-full h-[30vh] min-h-[220px] flex items-center justify-center overflow-hidden bg-black pt-[80px] border-b border-white/5"
       >
         <div className="absolute inset-0">
           <Image
@@ -394,39 +394,39 @@ export default function CheckoutModal() {
             alt="Poket Cafe"
             fill
             unoptimized
-            className="object-cover object-top brightness-[0.5] contrast-125 saturate-110"
+            className="object-cover object-top brightness-[0.45] contrast-125 saturate-110"
             priority
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-[#1A110C] pointer-events-none" />
         
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto flex flex-col items-center">
-          <button
-            onClick={() => (step === "payment" ? setStep("details") : router.back())}
-            className="absolute top-4 left-4 sm:left-8 inline-flex items-center gap-2 text-white/70 hover:text-cafe-secondary transition-colors duration-200 text-xs font-bold uppercase tracking-wider bg-black/40 backdrop-blur-md px-3.5 py-2 rounded-full border border-white/10 group"
-          >
-            <FaArrowLeft
-              size={10}
-              className="group-hover:-translate-x-1 transition-transform duration-200"
-            />
-            {step === "payment" ? "Back to Details" : "Back to Cart"}
-          </button>
-          
-          <div className="absolute top-4 right-4 sm:right-8 flex items-center gap-2 text-white/60 text-xs font-bold uppercase tracking-wider bg-black/40 backdrop-blur-md px-3.5 py-2 rounded-full border border-white/10">
-            <FaLock size={10} />
-            Secure
-          </div>
+        {/* Buttons positioned relative to the outer parent header */}
+        <button
+          onClick={() => (step === "payment" ? setStep("details") : router.back())}
+          className="absolute top-6 left-4 sm:left-8 z-20 inline-flex items-center gap-2 text-white/70 hover:text-cafe-secondary transition-colors duration-200 text-xs font-bold uppercase tracking-wider bg-black/40 backdrop-blur-md px-3.5 py-2 rounded-full border border-white/10 group"
+        >
+          <FaArrowLeft
+            size={10}
+            className="group-hover:-translate-x-1 transition-transform duration-200"
+          />
+          {step === "payment" ? "Back to Details" : "Back to Cart"}
+        </button>
+        
+        <div 
+          className="absolute top-6 right-4 sm:right-8 z-20 text-cafe-secondary font-black text-sm uppercase tracking-widest bg-black/40 backdrop-blur-md px-4 py-2 rounded-full border border-cafe-secondary/20"
+          style={{ fontFamily: "var(--font-serif)" }}
+        >
+          Poket Cafe
+        </div>
 
-          <h2 
-            className="text-white font-black text-3xl sm:text-4xl md:text-5xl tracking-widest uppercase filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
+        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto flex flex-col items-center mt-4">
+          <h1 
+            className="text-white font-black text-3xl sm:text-4xl md:text-5xl tracking-widest uppercase filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] animate-fade-in-up"
             style={{ fontFamily: "var(--font-serif)" }}
           >
-            Poket Cafe
-          </h2>
-          <div className="h-[2px] w-20 bg-cafe-secondary my-3 rounded-full" />
-          <h1 className="text-cafe-secondary font-black text-xl sm:text-2xl uppercase tracking-wider">
             Checkout
           </h1>
+          <div className="h-[2px] w-16 bg-cafe-secondary my-3 rounded-full animate-fade-in-up" />
           
           {/* Step Progress inside Header */}
           <div className="mt-4 flex items-center gap-2 min-w-[280px]">
