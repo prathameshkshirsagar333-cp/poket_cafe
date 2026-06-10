@@ -124,52 +124,24 @@ export default function OrdersPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#1A110C]">
-      {/* ── Page Header ── */}
-      <div
-        className="relative w-full overflow-hidden bg-black pt-28 pb-10 px-4 border-b border-white/5"
-      >
-        <div className="absolute inset-0">
-          <Image
-            src="/poket_cafe_hero_4k.png"
-            alt="Poket Cafe"
-            fill
-            unoptimized
-            className="object-cover object-top brightness-[0.5] contrast-125 saturate-110"
-            priority
-          />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-[#1A110C]/30 pointer-events-none" />
-        
-        <div className="relative z-10 max-w-3xl mx-auto">
+    <div className="min-h-screen bg-[#1A110C]/85">
+      {/* Header */}
+      <header className="bg-[#1A110C]/90 backdrop-blur-xl border-b border-white/10 px-4 py-5 sticky top-0 z-10">
+        <div className="max-w-3xl mx-auto flex items-center gap-4">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-white/70 hover:text-cafe-secondary transition-colors duration-200 text-sm font-semibold mb-6 group"
+            className="text-white/60 hover:text-white transition-colors"
           >
-            <FaArrowLeft
-              size={12}
-              className="group-hover:-translate-x-1 transition-transform duration-200"
-            />
-            Home
+            <FaArrowLeft size={16} />
           </Link>
-
-          <div className="text-center flex flex-col items-center">
-            <h2 
-              className="text-white font-black text-3xl sm:text-4xl md:text-5xl tracking-widest uppercase filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
-              style={{ fontFamily: "var(--font-serif)" }}
-            >
-              Poket Cafe
-            </h2>
-            <div className="h-[2px] w-20 bg-cafe-secondary my-3 rounded-full" />
-            <h1 className="text-cafe-secondary font-black text-xl sm:text-2xl uppercase tracking-wider">
-              My Orders
-            </h1>
-            <p className="text-white/60 text-xs sm:text-sm mt-1 font-semibold">
+          <div>
+            <h1 className="text-white font-bold text-xl">My Orders</h1>
+            <p className="text-white/40 text-xs mt-0.5">
               {orders.length} order{orders.length !== 1 ? "s" : ""} placed
             </p>
           </div>
         </div>
-      </div>
+      </header>
 
       <div className="max-w-3xl mx-auto px-4 py-8 space-y-4">
         {orders.length === 0 ? (

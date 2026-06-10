@@ -383,89 +383,51 @@ export default function CheckoutModal() {
   // MAIN CHECKOUT LAYOUT
   // ─────────────────────────────────────────────
   return (
-    <div className="min-h-screen bg-[#1A110C]">
-      {/* ── Page Header ── */}
-      <div
-        className="relative w-full overflow-hidden bg-black pt-28 pb-10 px-4 border-b border-white/5"
-      >
-        <div className="absolute inset-0">
-          <Image
-            src="/poket_cafe_hero_4k.png"
-            alt="Poket Cafe"
-            fill
-            unoptimized
-            className="object-cover object-top brightness-[0.45] contrast-125 saturate-110"
-            priority
-          />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-[#1A110C]/30 pointer-events-none" />
-        
-        <div className="relative z-10 max-w-5xl mx-auto">
-          {/* Header Row: Back Button on left, POKET CAFE in center, Secure on right */}
-          <div className="flex items-center justify-between gap-4 mb-6">
-            <button
-              onClick={() => (step === "payment" ? setStep("details") : router.back())}
-              className="inline-flex items-center gap-2 text-white/70 hover:text-cafe-secondary transition-colors duration-200 text-sm font-semibold group"
-            >
-              <FaArrowLeft
-                size={12}
-                className="group-hover:-translate-x-1 transition-transform duration-200"
-              />
-              {step === "payment" ? "Back to Details" : "Back to Cart"}
-            </button>
-            
-            <div 
-              className="text-cafe-secondary font-bold text-sm uppercase tracking-widest"
-              style={{ fontFamily: "var(--font-serif)" }}
-            >
-              Poket Cafe
-            </div>
-            
-            <div className="flex items-center gap-2 text-white/60 text-xs font-semibold uppercase tracking-wider">
-              <FaLock size={10} />
-              Secure
-            </div>
+    <div className="min-h-screen bg-[#1A110C]/85">
+      {/* Header */}
+      <header className="sticky top-0 z-10 bg-[#1A110C]/90 backdrop-blur-xl border-b border-white/10 px-4 py-4">
+        <div className="max-w-5xl mx-auto flex items-center justify-between">
+          <button
+            onClick={() => (step === "payment" ? setStep("details") : router.back())}
+            className="flex items-center gap-2 text-white/70 hover:text-white transition-colors text-sm font-medium"
+          >
+            <FaArrowLeft size={14} />
+            {step === "payment" ? "Back to Details" : "Back to Cart"}
+          </button>
+          <h1 className="text-white font-bold text-lg">Checkout</h1>
+          <div className="flex items-center gap-2 text-white/40 text-xs font-medium">
+            <FaLock size={10} />
+            Secure
           </div>
+        </div>
 
-          {/* Centered Page Title & Progress */}
-          <div className="text-center flex flex-col items-center">
-            <h1 
-              className="text-white font-black text-3xl sm:text-4xl md:text-5xl tracking-widest uppercase filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] animate-fade-in-up"
-              style={{ fontFamily: "var(--font-serif)" }}
-            >
-              Checkout
-            </h1>
-            <div className="h-[2px] w-16 bg-cafe-secondary my-3 rounded-full animate-fade-in-up" />
-          
-          {/* Step Progress inside Header */}
-          <div className="mt-4 flex items-center gap-2 min-w-[280px]">
-            {(["details", "payment"] as Step[]).map((s, i) => (
-              <div key={s} className="flex items-center gap-2 flex-1">
-                <div
-                  className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold transition-all ${
-                    step === s
-                      ? "bg-cafe-secondary text-[#1A110C]"
-                      : i < (step === "payment" ? 1 : 0)
-                      ? "bg-green-500 text-white"
-                      : "bg-white/10 text-white/40"
-                  }`}
-                >
-                  {i < (step === "payment" ? 1 : 0) ? "✓" : i + 1}
-                </div>
-                <span
-                  className={`text-[11px] font-bold uppercase tracking-wider ${
-                    step === s ? "text-white" : "text-white/40"
-                  }`}
-                >
-                  {s === "details" ? "Details" : "Payment"}
-                </span>
-                {i < 1 && <div className="flex-1 h-px bg-white/20 mx-1" />}
+        {/* Step Progress */}
+        <div className="max-w-5xl mx-auto mt-4 flex items-center gap-2">
+          {(["details", "payment"] as Step[]).map((s, i) => (
+            <div key={s} className="flex items-center gap-2 flex-1">
+              <div
+                className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
+                  step === s
+                    ? "bg-cafe-secondary text-[#1A110C]"
+                    : i < (step === "payment" ? 1 : 0)
+                    ? "bg-green-500 text-white"
+                    : "bg-white/10 text-white/40"
+                }`}
+              >
+                {i < (step === "payment" ? 1 : 0) ? "✓" : i + 1}
               </div>
-            ))}
-          </div>
+              <span
+                className={`text-xs font-medium capitalize hidden sm:block ${
+                  step === s ? "text-white" : "text-white/40"
+                }`}
+              >
+                {s === "details" ? "Order Details" : "Payment"}
+              </span>
+              {i < 1 && <div className="flex-1 h-px bg-white/10 mx-1" />}
+            </div>
+          ))}
         </div>
-      </div>
-    </div>
+      </header>
 
       <div className="max-w-5xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-8">
         {/* ── STEP 1: ORDER DETAILS ── */}

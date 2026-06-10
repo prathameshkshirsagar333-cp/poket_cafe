@@ -84,29 +84,22 @@ export default function CartPage() {
 
   return (
     <div
-      style={{ backgroundColor: "#100B07", minHeight: "100vh" }}
+      style={{ backgroundColor: "rgba(16,11,7,0.75)", minHeight: "100vh" }}
       className="font-sans"
     >
       {/* ── Page Header ── */}
       <div
-        className="relative w-full overflow-hidden bg-black pt-28 pb-10 px-4 border-b border-white/5"
+        style={{
+          background:
+            "linear-gradient(135deg, rgba(26,17,12,0.85) 0%, rgba(44,30,22,0.85) 50%, rgba(26,17,12,0.85) 100%)",
+          borderBottom: "1px solid rgba(197,160,89,0.15)",
+        }}
+        className="pt-28 pb-10 px-4"
       >
-        <div className="absolute inset-0">
-          <Image
-            src="/poket_cafe_hero_4k.png"
-            alt="Poket Cafe"
-            fill
-            unoptimized
-            className="object-cover object-top brightness-[0.5] contrast-125 saturate-110"
-            priority
-          />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-[#100B07]/30 pointer-events-none" />
-        
-        <div className="relative z-10 max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <Link
             href="/#menu"
-            className="inline-flex items-center gap-2 text-white/70 hover:text-cafe-secondary transition-colors duration-200 text-sm font-semibold mb-6 group"
+            className="inline-flex items-center gap-2 text-white/50 hover:text-cafe-secondary transition-colors duration-200 text-sm font-semibold mb-6 group"
           >
             <FaArrowLeft
               size={12}
@@ -114,23 +107,26 @@ export default function CartPage() {
             />
             Continue Shopping
           </Link>
-
-          <div className="text-center flex flex-col items-center">
-            <h2 
-              className="text-white font-black text-3xl sm:text-4xl md:text-5xl tracking-widest uppercase filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
-              style={{ fontFamily: "var(--font-serif)" }}
+          <div className="flex items-center gap-4">
+            <div
+              style={{ backgroundColor: "rgba(197,160,89,0.15)" }}
+              className="w-14 h-14 rounded-2xl flex items-center justify-center"
             >
-              Poket Cafe
-            </h2>
-            <div className="h-[2px] w-20 bg-cafe-secondary my-3 rounded-full" />
-            <h1 className="text-cafe-secondary font-black text-xl sm:text-2xl uppercase tracking-wider">
-              Your Cart
-            </h1>
-            <p className="text-white/60 text-xs sm:text-sm mt-1 font-semibold">
-              {cartCount > 0
-                ? `${cartCount} item${cartCount !== 1 ? "s" : ""} ready for checkout`
-                : "Your cart is waiting to be filled"}
-            </p>
+              <FaShoppingBag style={{ color: "#C5A059" }} size={24} />
+            </div>
+            <div>
+              <h1
+                className="text-white font-black text-4xl md:text-5xl tracking-tight"
+                style={{ fontFamily: "var(--font-serif)" }}
+              >
+                Your Cart
+              </h1>
+              <p className="text-white/40 text-sm mt-1 font-medium">
+                {cartCount > 0
+                  ? `${cartCount} item${cartCount !== 1 ? "s" : ""} ready for checkout`
+                  : "Your cart is waiting to be filled"}
+              </p>
+            </div>
           </div>
         </div>
       </div>

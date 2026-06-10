@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
 import { FaArrowLeft } from "react-icons/fa";
 
 type Order = {
@@ -72,54 +71,21 @@ export default function AdminOrders() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FCFBF8]">
-      {/* ── Page Header ── */}
-      <div
-        className="relative w-full overflow-hidden bg-black pt-28 pb-10 px-4 border-b border-white/5"
-      >
-        <div className="absolute inset-0">
-          <Image
-            src="/poket_cafe_hero_4k.png"
-            alt="Poket Cafe"
-            fill
-            unoptimized
-            className="object-cover object-top brightness-[0.5] contrast-125 saturate-110"
-            priority
+    <div className="min-h-screen bg-[#FCFBF8]/85 pt-28 pb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 text-cafe-primary hover:text-cafe-secondary transition-colors duration-200 text-sm font-semibold mb-6 group"
+        >
+          <FaArrowLeft
+            size={12}
+            className="group-hover:-translate-x-1 transition-transform duration-200"
           />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-[#FCFBF8]/30 pointer-events-none" />
-        
-        <div className="relative z-10 max-w-7xl mx-auto">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-white/70 hover:text-cafe-secondary transition-colors duration-200 text-sm font-semibold mb-6 group"
-          >
-            <FaArrowLeft
-              size={12}
-              className="group-hover:-translate-x-1 transition-transform duration-200"
-            />
-            Home
-          </Link>
-
-          <div className="text-center flex flex-col items-center">
-            <h2 
-              className="text-white font-black text-3xl sm:text-4xl md:text-5xl tracking-widest uppercase filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
-              style={{ fontFamily: "var(--font-serif)" }}
-            >
-              Poket Cafe
-            </h2>
-            <div className="h-[2px] w-20 bg-cafe-secondary my-3 rounded-full" />
-            <h1 className="text-cafe-secondary font-black text-xl sm:text-2xl uppercase tracking-wider">
-              Admin Panel
-            </h1>
-            <p className="text-white/60 text-xs sm:text-sm mt-1 font-semibold">
-              Manage all Poket Cafe orders
-            </p>
-          </div>
-        </div>
+          Back to Home
+        </Link>
       </div>
 
-      <div className="max-w-7xl mx-auto space-y-8 p-4 sm:p-6 lg:p-8 mt-4">
+      <div className="max-w-7xl mx-auto space-y-8 p-4 sm:p-6 lg:p-8">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
           <div>
             <h1 className="text-2xl font-bold text-gray-900">Order Management</h1>

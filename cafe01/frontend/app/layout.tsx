@@ -30,7 +30,18 @@ export default function RootLayout({
       className={`${playfair.variable} ${inter.variable} h-full antialiased scroll-smooth`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col font-sans bg-background text-foreground bg-[#FCFBF8]" suppressHydrationWarning>
+      <body className="min-h-full flex flex-col font-sans text-foreground relative bg-[#100B07]" suppressHydrationWarning>
+        {/* Global 4K Background Image with low opacity and blur */}
+        <div 
+          className="fixed inset-0 z-[-1] pointer-events-none"
+          style={{
+            backgroundImage: "url('/poket_cafe_bg.png')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            opacity: 0.15,
+            filter: "blur(12px)",
+          }}
+        />
         <HydrationFix />
         <Providers>
           {children}
