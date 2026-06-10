@@ -386,7 +386,7 @@ export default function CheckoutModal() {
     <div className="min-h-screen bg-[#1A110C]">
       {/* ── Page Header ── */}
       <div
-        className="relative w-full h-[30vh] min-h-[220px] flex items-center justify-center overflow-hidden bg-black pt-[80px] border-b border-white/5"
+        className="relative w-full overflow-hidden bg-black pt-28 pb-10 px-4 border-b border-white/5"
       >
         <div className="absolute inset-0">
           <Image
@@ -398,35 +398,44 @@ export default function CheckoutModal() {
             priority
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-[#1A110C] pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-[#1A110C]/30 pointer-events-none" />
         
-        {/* Buttons positioned relative to the outer parent header */}
-        <button
-          onClick={() => (step === "payment" ? setStep("details") : router.back())}
-          className="absolute top-6 left-4 sm:left-8 z-20 inline-flex items-center gap-2 text-white/70 hover:text-cafe-secondary transition-colors duration-200 text-sm font-semibold group"
-        >
-          <FaArrowLeft
-            size={12}
-            className="group-hover:-translate-x-1 transition-transform duration-200"
-          />
-          {step === "payment" ? "Back to Details" : "Back to Cart"}
-        </button>
-        
-        <div 
-          className="absolute top-6 right-4 sm:right-8 z-20 text-cafe-secondary font-bold text-sm uppercase tracking-widest"
-          style={{ fontFamily: "var(--font-serif)" }}
-        >
-          Poket Cafe
-        </div>
+        <div className="relative z-10 max-w-5xl mx-auto">
+          {/* Header Row: Back Button on left, POKET CAFE in center, Secure on right */}
+          <div className="flex items-center justify-between gap-4 mb-6">
+            <button
+              onClick={() => (step === "payment" ? setStep("details") : router.back())}
+              className="inline-flex items-center gap-2 text-white/70 hover:text-cafe-secondary transition-colors duration-200 text-sm font-semibold group"
+            >
+              <FaArrowLeft
+                size={12}
+                className="group-hover:-translate-x-1 transition-transform duration-200"
+              />
+              {step === "payment" ? "Back to Details" : "Back to Cart"}
+            </button>
+            
+            <div 
+              className="text-cafe-secondary font-bold text-sm uppercase tracking-widest"
+              style={{ fontFamily: "var(--font-serif)" }}
+            >
+              Poket Cafe
+            </div>
+            
+            <div className="flex items-center gap-2 text-white/60 text-xs font-semibold uppercase tracking-wider">
+              <FaLock size={10} />
+              Secure
+            </div>
+          </div>
 
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto flex flex-col items-center mt-4">
-          <h1 
-            className="text-white font-black text-3xl sm:text-4xl md:text-5xl tracking-widest uppercase filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] animate-fade-in-up"
-            style={{ fontFamily: "var(--font-serif)" }}
-          >
-            Checkout
-          </h1>
-          <div className="h-[2px] w-16 bg-cafe-secondary my-3 rounded-full animate-fade-in-up" />
+          {/* Centered Page Title & Progress */}
+          <div className="text-center flex flex-col items-center">
+            <h1 
+              className="text-white font-black text-3xl sm:text-4xl md:text-5xl tracking-widest uppercase filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] animate-fade-in-up"
+              style={{ fontFamily: "var(--font-serif)" }}
+            >
+              Checkout
+            </h1>
+            <div className="h-[2px] w-16 bg-cafe-secondary my-3 rounded-full animate-fade-in-up" />
           
           {/* Step Progress inside Header */}
           <div className="mt-4 flex items-center gap-2 min-w-[280px]">
@@ -456,6 +465,7 @@ export default function CheckoutModal() {
           </div>
         </div>
       </div>
+    </div>
 
       <div className="max-w-5xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-8">
         {/* ── STEP 1: ORDER DETAILS ── */}

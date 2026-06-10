@@ -89,7 +89,7 @@ export default function CartPage() {
     >
       {/* ── Page Header ── */}
       <div
-        className="relative w-full h-[35vh] min-h-[260px] flex items-center justify-center overflow-hidden bg-black pt-[80px] border-b border-white/5"
+        className="relative w-full overflow-hidden bg-black pt-28 pb-10 px-4 border-b border-white/5"
       >
         <div className="absolute inset-0">
           <Image
@@ -101,12 +101,12 @@ export default function CartPage() {
             priority
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-[#100B07] pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-[#100B07]/30 pointer-events-none" />
         
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto flex flex-col items-center">
+        <div className="relative z-10 max-w-7xl mx-auto">
           <Link
             href="/#menu"
-            className="absolute top-6 left-4 sm:left-8 z-20 inline-flex items-center gap-2 text-white/70 hover:text-cafe-secondary transition-colors duration-200 text-sm font-semibold group"
+            className="inline-flex items-center gap-2 text-white/70 hover:text-cafe-secondary transition-colors duration-200 text-sm font-semibold mb-6 group"
           >
             <FaArrowLeft
               size={12}
@@ -115,21 +115,23 @@ export default function CartPage() {
             Continue Shopping
           </Link>
 
-          <h2 
-            className="text-white font-black text-3xl sm:text-4xl md:text-5xl tracking-widest uppercase filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
-            style={{ fontFamily: "var(--font-serif)" }}
-          >
-            Poket Cafe
-          </h2>
-          <div className="h-[2px] w-20 bg-cafe-secondary my-3 rounded-full" />
-          <h1 className="text-cafe-secondary font-black text-xl sm:text-2xl uppercase tracking-wider">
-            Your Cart
-          </h1>
-          <p className="text-white/60 text-xs sm:text-sm mt-1 font-semibold">
-            {cartCount > 0
-              ? `${cartCount} item${cartCount !== 1 ? "s" : ""} ready for checkout`
-              : "Your cart is waiting to be filled"}
-          </p>
+          <div className="text-center flex flex-col items-center">
+            <h2 
+              className="text-white font-black text-3xl sm:text-4xl md:text-5xl tracking-widest uppercase filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
+              style={{ fontFamily: "var(--font-serif)" }}
+            >
+              Poket Cafe
+            </h2>
+            <div className="h-[2px] w-20 bg-cafe-secondary my-3 rounded-full" />
+            <h1 className="text-cafe-secondary font-black text-xl sm:text-2xl uppercase tracking-wider">
+              Your Cart
+            </h1>
+            <p className="text-white/60 text-xs sm:text-sm mt-1 font-semibold">
+              {cartCount > 0
+                ? `${cartCount} item${cartCount !== 1 ? "s" : ""} ready for checkout`
+                : "Your cart is waiting to be filled"}
+            </p>
+          </div>
         </div>
       </div>
 

@@ -10,7 +10,7 @@ export default function DashboardPage() {
       <main className="flex flex-col flex-1 w-full mx-auto justify-center bg-[#FCFBF8]">
         {/* ── Page Header ── */}
         <div
-          className="relative w-full h-[35vh] min-h-[260px] flex items-center justify-center overflow-hidden bg-black pt-[80px] border-b border-white/5"
+          className="relative w-full overflow-hidden bg-black pt-28 pb-10 px-4 border-b border-white/5"
         >
           <div className="absolute inset-0">
             <Image
