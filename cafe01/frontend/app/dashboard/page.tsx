@@ -22,7 +22,7 @@ export default function DashboardPage() {
               priority
             />
           </div>
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-[#FCFBF8] pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-[#FCFBF8]/30 pointer-events-none" />
           
           <div className="relative z-10 text-center px-4 max-w-4xl mx-auto flex flex-col items-center">
             <h2 
