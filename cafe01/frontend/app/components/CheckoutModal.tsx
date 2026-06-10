@@ -75,6 +75,7 @@ export default function CheckoutModal() {
     items: any[];
   } | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [elapsedSeconds, setElapsedSeconds] = useState(0);
 
   const tax = Math.round(cartTotal * 0.05);
   const deliveryFee = cartTotal >= 500 || cartTotal === 0 ? 0 : 50;
@@ -102,6 +103,29 @@ export default function CheckoutModal() {
 
   const orderType = watchAddr("orderType");
   const [addressData, setAddressData] = useState<AddressForm | null>(null);
+
+  useEffect(() => {
+    if (step !== "success" || !orderResult) return;
+    
+    const key = `order_time_${orderResult.orderNumber}`;
+    let startTime = localStorage.getItem(key);
+    if (!startTime) {
+      startTime = Date.now().toString();
+      localStorage.setItem(key, startTime);
+    }
+    
+    const startTimestamp = parseInt(startTime, 10);
+    
+    const updateElapsed = () => {
+      const elapsed = Math.floor((Date.now() - startTimestamp) / 1000);
+      setElapsedSeconds(elapsed);
+    };
+    
+    updateElapsed();
+    const interval = setInterval(updateElapsed, 1000);
+    
+    return () => clearInterval(interval);
+  }, [step, orderResult]);
 
   const onAddressSubmit = (data: AddressForm) => {
     setAddressData(data);
@@ -356,8 +380,19 @@ export default function CheckoutModal() {
               Order Status Track
             </h3>
             <div className="relative flex items-center justify-between max-w-sm mx-auto">
-              {/* Connector line */}
-              <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-[2px] bg-white/10 z-0" />
+              {/* Connector lines behind */}
+              <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 flex z-0">
+                <div 
+                  className={`h-[2px] w-1/2 transition-colors duration-1000 ${
+                    elapsedSeconds >= 60 ? "bg-green-500" : "bg-white/10"
+                  }`} 
+                />
+                <div 
+                  className={`h-[2px] w-1/2 transition-colors duration-1000 ${
+                    elapsedSeconds >= 240 ? "bg-green-500" : "bg-white/10"
+                  }`} 
+                />
+              </div>
               
               {/* Step 1: Placed */}
               <div className="relative z-10 flex flex-col items-center gap-2">
@@ -369,18 +404,58 @@ export default function CheckoutModal() {
 
               {/* Step 2: Preparing */}
               <div className="relative z-10 flex flex-col items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-cafe-secondary text-[#1A110C] flex items-center justify-center shadow-md animate-pulse">
-                  <FaClock size={12} />
+                <div 
+                  className={`w-8 h-8 rounded-full flex items-center justify-center shadow-md transition-all duration-500 ${
+                    elapsedSeconds >= 60 
+                      ? "bg-green-500 text-[#1A110C]" 
+                      : "bg-cafe-secondary text-[#1A110C] animate-pulse"
+                  }`}
+                >
+                  {elapsedSeconds >= 60 ? (
+                    <FaCheck size={12} className="font-bold" />
+                  ) : (
+                    <FaClock size={12} className="animate-spin" style={{ animationDuration: "3s" }} />
+                  )}
                 </div>
-                <span className="text-[11px] font-bold text-cafe-secondary">Preparing</span>
+                <span 
+                  className={`text-[11px] font-bold transition-colors duration-500 ${
+                    elapsedSeconds >= 60 ? "text-green-400" : "text-cafe-secondary"
+                  }`}
+                >
+                  {elapsedSeconds >= 60 ? "Prepared" : "Preparing"}
+                </span>
               </div>
 
               {/* Step 3: Ready */}
               <div className="relative z-10 flex flex-col items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-white/10 border border-white/20 text-white/40 flex items-center justify-center shadow-md">
-                  <FaMotorcycle size={12} />
+                <div 
+                  className={`w-8 h-8 rounded-full flex items-center justify-center shadow-md border transition-all duration-500 ${
+                    elapsedSeconds >= 240
+                      ? "bg-green-500 border-transparent text-[#1A110C]"
+                      : elapsedSeconds >= 60
+                      ? "bg-cafe-secondary border-transparent text-[#1A110C] animate-pulse"
+                      : "bg-[#1A110C] border-white/20 text-white/40"
+                  }`}
+                >
+                  {elapsedSeconds >= 240 ? (
+                    <FaCheck size={12} className="font-bold" />
+                  ) : elapsedSeconds >= 60 ? (
+                    <FaClock size={12} className="animate-spin" style={{ animationDuration: "3s" }} />
+                  ) : (
+                    <FaMotorcycle size={12} />
+                  )}
                 </div>
-                <span className="text-[11px] font-bold text-white/40">Ready</span>
+                <span 
+                  className={`text-[11px] font-bold transition-colors duration-500 ${
+                    elapsedSeconds >= 240 
+                      ? "text-green-400" 
+                      : elapsedSeconds >= 60 
+                      ? "text-cafe-secondary" 
+                      : "text-white/40"
+                  }`}
+                >
+                  {elapsedSeconds >= 240 ? "Ready" : "Ready"}
+                </span>
               </div>
             </div>
           </div>
