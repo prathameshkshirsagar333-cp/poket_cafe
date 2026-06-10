@@ -127,6 +127,12 @@ export default function CheckoutModal() {
     return () => clearInterval(interval);
   }, [step, orderResult]);
 
+  useEffect(() => {
+    if (orderType !== "delivery" && paymentMethod === "cod") {
+      setPaymentMethod("upi");
+    }
+  }, [orderType, paymentMethod]);
+
   const onAddressSubmit = (data: AddressForm) => {
     setAddressData(data);
     setStep("payment");
@@ -269,6 +275,10 @@ export default function CheckoutModal() {
       desc: "50% advance online, 50% cash on delivery",
     },
   ];
+
+  const filteredPaymentMethods = paymentMethods.filter(
+    (m) => m.id !== "cod" || orderType === "delivery"
+  );
 
   // ─────────────────────────────────────────────
   // ORDER SUMMARY SIDEBAR
@@ -850,7 +860,7 @@ export default function CheckoutModal() {
             <div className="bg-[#2C1E16] rounded-2xl p-6 space-y-4">
               <h2 className="text-white font-bold text-lg">Payment Method</h2>
               <div className="space-y-2">
-                {paymentMethods.map((m) => (
+                {filteredPaymentMethods.map((m) => (
                   <label
                     key={m.id}
                     className={`flex items-center gap-4 p-4 rounded-xl border cursor-pointer transition-all ${
