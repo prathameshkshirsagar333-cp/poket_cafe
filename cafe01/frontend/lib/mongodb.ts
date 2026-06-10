@@ -1,4 +1,14 @@
 import mongoose, { Mongoose } from "mongoose";
+import dns from "dns";
+
+// Fix Windows/Node DNS resolution issue for MongoDB Atlas SRV records in local development
+if (process.env.NODE_ENV !== "production") {
+  try {
+    dns.setServers(["8.8.8.8"]);
+  } catch (err) {
+    console.warn("Failed to set DNS servers:", err);
+  }
+}
 
 const MONGODB_URI = process.env.MONGODB_URI;
 

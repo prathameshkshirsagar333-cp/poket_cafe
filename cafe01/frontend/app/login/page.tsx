@@ -117,7 +117,12 @@ function LoginPageContent() {
       
       // Artificial delay for smooth UX
       setTimeout(() => {
-        router.push(callbackUrl);
+        const target = callbackUrl || "/";
+        if (target.includes("/login") || target.includes("/signup")) {
+          window.location.href = "/";
+        } else {
+          window.location.href = target;
+        }
       }, 1200);
 
     } catch (error) {

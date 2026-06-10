@@ -96,7 +96,7 @@ export default function LoginForm() {
       setSuccessMsg("Authentication completed! Redirecting...");
       
       setTimeout(() => {
-        router.push("/");
+        window.location.href = "/";
       }, 700);
       
     } catch (err: any) {
