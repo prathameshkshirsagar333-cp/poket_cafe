@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SectionHeading from "./SectionHeading";
 import { FaCalendarAlt, FaClock, FaUserFriends, FaSpinner, FaCheckCircle, FaExclamationCircle, FaLock } from "react-icons/fa";
 import { useForm } from "react-hook-form";
@@ -16,18 +16,25 @@ export default function Reservation() {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors, isSubmitting, isValid },
   } = useForm({
     mode: "onChange",
     defaultValues: {
       name: "",
-      email: session?.user?.email || "",
+      email: "",
       date: "",
       time: "",
       guests: 2,
       request: ""
     }
   });
+
+  useEffect(() => {
+    if (session?.user?.email) {
+      setValue("email", session.user.email, { shouldValidate: true });
+    }
+  }, [session, setValue]);
 
   const onSubmit = async (data: any) => {
     setServerError("");
@@ -135,7 +142,6 @@ export default function Reservation() {
                         type="email"
                         {...register("email")}
                         readOnly
-                        value={session?.user?.email || ""}
                         className="w-full px-4 py-3 rounded-lg border border-gray-200 bg-gray-100 text-gray-500 cursor-not-allowed outline-none transition-colors appearance-none"
                         placeholder="john@example.com"
                       />
