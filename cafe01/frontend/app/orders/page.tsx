@@ -41,6 +41,8 @@ interface Order {
     tableNumber?: string;
     city?: string;
   };
+  codAdvancePaid?: number;
+  codDueRemaining?: number;
   createdAt: string;
 }
 
@@ -273,24 +275,39 @@ export default function OrdersPage() {
                     </div>
 
                     {/* Meta Info */}
-                    <div className="flex flex-wrap gap-3 text-xs">
-                      <div className="bg-white/5 rounded-lg px-3 py-1.5 text-white/50">
-                        <span className="text-white/30">Payment: </span>
-                        <span className="text-white capitalize font-medium">
-                          {order.paymentMethod === "cod"
-                            ? "Cash on Delivery"
-                            : order.paymentMethod.toUpperCase()}
-                        </span>
+                    <div className="flex flex-col gap-2 pt-2 border-t border-white/5">
+                      <div className="flex flex-wrap gap-3 text-xs">
+                        <div className="bg-white/5 rounded-lg px-3 py-1.5 text-white/50">
+                          <span className="text-white/30">Payment Method: </span>
+                          <span className="text-white capitalize font-medium">
+                            {order.paymentMethod === "cod"
+                              ? "Cash on Delivery (50% Split)"
+                              : order.paymentMethod.toUpperCase()}
+                          </span>
+                        </div>
+                        <div className="bg-white/5 rounded-lg px-3 py-1.5 text-white/50">
+                          <span className="text-white/30">Type: </span>
+                          <span className="text-white capitalize font-medium">
+                            {order.address?.orderType?.replace("-", " ") || "N/A"}
+                            {order.address?.tableNumber
+                              ? ` (${order.address.tableNumber})`
+                              : ""}
+                          </span>
+                        </div>
                       </div>
-                      <div className="bg-white/5 rounded-lg px-3 py-1.5 text-white/50">
-                        <span className="text-white/30">Type: </span>
-                        <span className="text-white capitalize font-medium">
-                          {order.address?.orderType?.replace("-", " ") || "N/A"}
-                          {order.address?.tableNumber
-                            ? ` (${order.address.tableNumber})`
-                            : ""}
-                        </span>
-                      </div>
+                      
+                      {order.paymentMethod === "cod" && (
+                        <div className="bg-white/5 border border-white/10 rounded-xl p-3 space-y-1.5 text-xs">
+                          <div className="flex justify-between">
+                            <span className="text-white/40">50% Advance Paid Online:</span>
+                            <span className="text-green-400 font-bold">₹{order.codAdvancePaid || Math.round(order.total * 0.5)}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-white/40">50% Due in Cash on Delivery:</span>
+                            <span className="text-yellow-400 font-bold">₹{order.codDueRemaining || (order.total - Math.round(order.total * 0.5))}</span>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 )}

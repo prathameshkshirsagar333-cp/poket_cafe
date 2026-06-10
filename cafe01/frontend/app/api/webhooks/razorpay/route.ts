@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
       const order = await Order.findOne({ orderNumber: receipt });
 
       if (order && order.status === "pending") {
-        order.status = "paid";
+        order.status = order.paymentMethod === "cod" ? "processing" : "paid";
         order.paymentId = paymentEntity?.id || order.paymentId;
         await order.save();
 

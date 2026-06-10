@@ -77,33 +77,37 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Valid 10-digit phone number required (e.g. 91XXXXXXXXXX)" }, { status: 400 });
     }
 
-    // For COD, mark as processing. For online payments, mark as pending until webhook confirms.
-    const status = paymentMethod === "cod" ? "processing" : "pending";
+    // Always start as pending since even COD requires a 50% advance payment online.
+    const status = "pending";
 
     const orderNumber = generateOrderNumber();
 
+    // Calculate advance amount and due amount for COD (50% split)
+    const codAdvancePaid = paymentMethod === "cod" ? Math.round(total * 0.5) : 0;
+    const codDueRemaining = paymentMethod === "cod" ? total - codAdvancePaid : 0;
+
     let razorpayOrderId = null;
 
-    // Create Razorpay Order if not COD
-    if (paymentMethod !== "cod") {
-      const razorpay = new Razorpay({
-        key_id: process.env.RAZORPAY_KEY_ID!,
-        key_secret: process.env.RAZORPAY_KEY_SECRET!,
-      });
+    // Create Razorpay Order (either for 50% advance or full payment)
+    const razorpay = new Razorpay({
+      key_id: process.env.RAZORPAY_KEY_ID!,
+      key_secret: process.env.RAZORPAY_KEY_SECRET!,
+    });
 
-      const options = {
-        amount: Math.round(total * 100), // amount in smallest currency unit (paise)
-        currency: "INR",
-        receipt: orderNumber,
-      };
+    const paymentAmount = paymentMethod === "cod" ? codAdvancePaid : total;
 
-      try {
-        const razorpayOrder = await razorpay.orders.create(options);
-        razorpayOrderId = razorpayOrder.id;
-      } catch (rzpError) {
-        console.error("Razorpay Order Creation Error:", rzpError);
-        return NextResponse.json({ error: "Failed to initialize payment gateway" }, { status: 500 });
-      }
+    const options = {
+      amount: Math.round(paymentAmount * 100), // amount in smallest currency unit (paise)
+      currency: "INR",
+      receipt: orderNumber,
+    };
+
+    try {
+      const razorpayOrder = await razorpay.orders.create(options);
+      razorpayOrderId = razorpayOrder.id;
+    } catch (rzpError) {
+      console.error("Razorpay Order Creation Error:", rzpError);
+      return NextResponse.json({ error: "Failed to initialize payment gateway" }, { status: 500 });
     }
 
     const order = new Order({
@@ -119,9 +123,11 @@ export async function POST(req: NextRequest) {
       total,
       status,
       paymentMethod,
-      paymentId: paymentId || null,
-      upiId: upiId || null,
+      paymentId: null,
+      upiId: null,
       address,
+      codAdvancePaid,
+      codDueRemaining,
     });
 
     await order.save();
@@ -133,27 +139,7 @@ export async function POST(req: NextRequest) {
       await Cart.findOneAndUpdate({ guestId }, { items: [] });
     }
 
-    // If COD, we trigger WhatsApp right away. If online payment, we might wait for webhook.
-    // However, to keep it simple, we can trigger an 'Order Initiated' or just wait for webhook.
-    // For now, let's keep the existing logic and only send confirmation if it's COD.
-    if (status === "processing") {
-      const itemsList = items.map((item: any) => `  - ${item.quantity}x ${item.name} (₹${item.price})`).join("\n");
-      const customerName = session?.user?.name || guestName || address.fullName || "Valued Customer";
-      const customerEmail = session?.user?.email || guestEmail || address.email;
-      
-      sendWhatsAppOrderConfirmation(
-        address.phone,
-        customerName,
-        orderNumber,
-        total,
-        itemsList
-      ).then((whatsappSuccess) => {
-         if (!whatsappSuccess && customerEmail) {
-            console.log("WhatsApp failed, attempting email fallback...");
-            sendOrderConfirmationEmail(customerEmail, customerName, orderNumber, total, itemsList, status);
-         }
-      }).catch(err => console.error("Error in confirmation flow:", err));
-    }
+
 
     return NextResponse.json({
       success: true,

@@ -43,6 +43,8 @@ export interface IOrder extends Document {
   paymentId?: string;
   upiId?: string;
   address: IOrderAddress;
+  codAdvancePaid?: number;
+  codDueRemaining?: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -113,6 +115,8 @@ const OrderSchema: Schema = new Schema(
     },
     paymentId: { type: String, default: null },
     upiId: { type: String, default: null },
+    codAdvancePaid: { type: Number, default: 0 },
+    codDueRemaining: { type: Number, default: 0 },
     address: { type: OrderAddressSchema, required: true },
   },
   { timestamps: true }

@@ -184,14 +184,14 @@ export default function CheckoutModal() {
         throw new Error(data.error || "Order failed");
       }
 
-      if (paymentMethod !== "cod" && data.razorpayOrderId) {
-        // Open Razorpay Checkout
+      if (data.razorpayOrderId) {
+        // Open Razorpay Checkout (supports online full payment and COD 50% advance)
         const options = {
           key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_1DP5mmOlF5G5ag",
-          amount: Math.round(grandTotal * 100),
+          amount: paymentMethod === "cod" ? Math.round(grandTotal * 0.5 * 100) : Math.round(grandTotal * 100),
           currency: "INR",
           name: "Poket Cafe",
-          description: "Order Checkout",
+          description: paymentMethod === "cod" ? "50% Non-Refundable COD Advance" : "Order Checkout",
           order_id: data.razorpayOrderId,
           handler: async function (response: any) {
             // Payment Success
@@ -221,7 +221,7 @@ export default function CheckoutModal() {
         });
         rzp.open();
       } else {
-        // COD Success
+        // Fallback for offline testing or order creations without Razorpay
         setOrderResult({
           orderNumber: data.order.orderNumber,
           total: data.order.total,
@@ -266,7 +266,7 @@ export default function CheckoutModal() {
       id: "cod",
       label: "Cash on Delivery",
       icon: <FaMotorcycle size={18} />,
-      desc: "Pay when you receive",
+      desc: "50% advance online, 50% cash on delivery",
     },
   ];
 
@@ -474,7 +474,7 @@ export default function CheckoutModal() {
             </div>
 
             {/* Receipt Details Info */}
-            <div className="space-y-2 text-xs text-white/50 font-medium">
+            <div className="space-y-2 text-xs text-white/50 font-medium font-sans">
               <div className="flex justify-between">
                 <span>Receipt Date:</span>
                 <span className="text-white/80">{today}</span>
@@ -486,15 +486,29 @@ export default function CheckoutModal() {
               <div className="flex justify-between">
                 <span>Payment Mode:</span>
                 <span className="text-white/80 uppercase">
-                  {paymentMethod === "cod" ? "Cash on Delivery" : paymentMethod}
+                  {paymentMethod === "cod" ? "Cash on Delivery (50% Advance)" : paymentMethod}
                 </span>
               </div>
-              <div className="flex justify-between">
-                <span>Payment Status:</span>
-                <span className="text-green-400 font-bold">
-                  {paymentMethod === "cod" ? "Confirmed" : "Paid"}
-                </span>
-              </div>
+              {paymentMethod === "cod" ? (
+                <>
+                  <div className="flex justify-between text-green-400 font-bold border-t border-white/5 pt-1.5 mt-1">
+                    <span>50% Advance Paid Online:</span>
+                    <span>₹{Math.round(orderResult.total * 0.5)}</span>
+                  </div>
+                  <div className="flex justify-between text-yellow-400 font-bold">
+                    <span>Remaining Due on Delivery:</span>
+                    <span>₹{orderResult.total - Math.round(orderResult.total * 0.5)}</span>
+                  </div>
+                  <div className="text-[10px] text-red-400/80 font-bold uppercase tracking-wider text-center mt-2.5">
+                    ⚠️ Note: Advance payment is non-refundable.
+                  </div>
+                </>
+              ) : (
+                <div className="flex justify-between">
+                  <span>Payment Status:</span>
+                  <span className="text-green-400 font-bold">Paid</span>
+                </div>
+              )}
             </div>
 
             <div className="border-b border-dashed border-white/10 my-4" />
@@ -917,11 +931,28 @@ export default function CheckoutModal() {
                   <div className="w-16 h-16 rounded-full bg-cafe-secondary/10 flex items-center justify-center mx-auto">
                     <FaMotorcycle size={28} className="text-cafe-secondary" />
                   </div>
-                  <h3 className="text-white font-bold">Cash on Delivery</h3>
-                  <p className="text-white/50 text-sm">
-                    Pay ₹{grandTotal} in cash when your order arrives. Have
-                    exact change ready!
+                  <h3 className="text-white font-bold">Cash on Delivery (COD)</h3>
+                  <p className="text-white/70 text-sm">
+                    For Cash on Delivery, a <span className="text-cafe-secondary font-bold">50% advance payment</span> is required online now. The remaining 50% is due in cash when your order arrives.
                   </p>
+                  
+                  <div className="bg-white/5 border border-white/10 rounded-xl p-4 mt-3 space-y-2 text-left text-xs font-sans">
+                    <div className="flex justify-between">
+                      <span className="text-white/50">Total Order Amount:</span>
+                      <span className="text-white font-bold">₹{grandTotal}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-white/50">Advance to Pay Online (50%):</span>
+                      <span className="text-cafe-secondary font-black">₹{Math.round(grandTotal * 0.5)}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-white/50">Cash Due on Delivery (50%):</span>
+                      <span className="text-white font-bold">₹{grandTotal - Math.round(grandTotal * 0.5)}</span>
+                    </div>
+                    <p className="text-red-400 text-[10px] text-center font-bold uppercase tracking-wider mt-2">
+                      ⚠️ Note: 50% Advance is strictly non-refundable.
+                    </p>
+                  </div>
                 </div>
               )}
             </div>
@@ -933,7 +964,7 @@ export default function CheckoutModal() {
             >
               <FaLock size={14} />
               {paymentMethod === "cod"
-                ? `Confirm Order · ₹${grandTotal}`
+                ? `Pay 50% Advance · ₹${Math.round(grandTotal * 0.5)}`
                 : `Pay ₹${grandTotal}`}
             </button>
           </form>
