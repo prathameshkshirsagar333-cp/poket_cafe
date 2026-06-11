@@ -11,8 +11,7 @@ import {
   FaTachometerAlt, 
   FaSignOutAlt, 
   FaChevronDown,
-  FaListAlt,
-  FaInstagram
+  FaListAlt
 } from "react-icons/fa";
 
 export default function Navbar() {
@@ -174,39 +173,7 @@ export default function Navbar() {
                   </div>
                 </div>
               </div>
-            ) : (
-              <div className="flex items-center gap-2">
-                <Link
-                  href="/login"
-                  className={`px-8 py-2.5 rounded-full font-bold uppercase tracking-widest text-[13px] transition-all duration-300 ease-out outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#1A110C] focus-visible:ring-cafe-secondary ${
-                    isScrolled
-                      ? "bg-cafe-secondary text-[#1A110C] hover:bg-white shadow-lg hover:-translate-y-0.5"
-                      : "bg-white text-[#1A110C] hover:bg-cafe-secondary shadow-lg hover:-translate-y-0.5"
-                  }`}
-                >
-                  Log In
-                </Link>
-                <button
-                  type="button"
-                  onClick={() => {
-                    if (process.env.NEXT_PUBLIC_INSTAGRAM_READY !== "true") {
-                      alert("Instagram Login is currently in Developer Mode. Please configure your App ID and Secret in .env.local to enable this feature.");
-                      return;
-                    }
-                    signIn("instagram", { callbackUrl: "/" });
-                  }}
-                  className={`flex items-center gap-2 px-5 py-2.5 rounded-full transition-all duration-300 font-bold tracking-wide uppercase text-[13px] outline-none focus-visible:ring-2 focus-visible:ring-cafe-secondary border ${
-                    isScrolled 
-                      ? "border-white/10 bg-white/5 text-white hover:border-cafe-secondary hover:text-cafe-secondary hover:bg-white/10"
-                      : "border-white/20 bg-black/20 text-white hover:bg-cafe-secondary hover:text-[#1A110C] hover:border-cafe-secondary"
-                  }`}
-                  title="Sign In with Instagram"
-                >
-                  <FaInstagram size={18} />
-                  <span className="hidden lg:inline">Instagram</span>
-                </button>
-              </div>
-            )}
+            ) : null}
           </div>
 
           {/* MOBILE HAMBURGER TOGGLE */}
@@ -306,42 +273,7 @@ export default function Navbar() {
                  <FaSignOutAlt /> Secure Log Out
                </button>
             </div>
-          ) : (
-            <div className="flex flex-col sm:flex-row gap-3 w-full mt-2"
-              style={{ 
-                transform: mobileMenuOpen ? "translateY(0)" : "translateY(-15px)",
-                opacity: mobileMenuOpen ? 1 : 0,
-                transitionDelay: `300ms`
-              }}
-            >
-              <Link
-                href="/login"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex-1 py-4 rounded-2xl bg-cafe-dark text-white text-center font-black uppercase tracking-widest text-[15px] shadow-xl hover:bg-cafe-primary active:scale-95 transition-all duration-300"
-              >
-                Secure Log In
-              </Link>
-              <button
-                type="button"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  if (process.env.NEXT_PUBLIC_INSTAGRAM_READY !== "true") {
-                    alert("Instagram Login is currently in Developer Mode. Please configure your App ID and Secret in .env.local to enable this feature.");
-                    return;
-                  }
-                  signIn("instagram", { callbackUrl: "/" });
-                }}
-                className="flex items-center justify-center gap-3 py-4 rounded-2xl bg-white border-2 border-gray-100 text-gray-700 font-black uppercase tracking-widest text-[15px] shadow-sm hover:bg-gray-50 active:scale-95 transition-all duration-300"
-              >
-                <img 
-                  src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" 
-                  alt="Instagram" 
-                  className="w-[20px] h-[20px]" 
-                />
-                <span className="sm:hidden">Instagram</span>
-              </button>
-            </div>
-          )}
+          ) : null}
         </div>
       </div>
 
