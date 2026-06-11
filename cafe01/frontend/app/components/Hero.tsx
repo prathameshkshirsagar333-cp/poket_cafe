@@ -23,8 +23,8 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-[#FCFBF8]/30 pointer-events-none" />
       
       {/* Centered tagline/description */}
-      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto flex flex-col items-center justify-center">
-        <p className="text-cafe-secondary text-sm sm:text-base md:text-lg font-bold tracking-widest uppercase mt-4 max-w-md drop-shadow-md">
+      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto flex flex-col items-center justify-center -translate-y-10 sm:-translate-y-16">
+        <p className="text-cafe-secondary text-sm sm:text-base md:text-lg font-bold tracking-widest uppercase mt-0 max-w-md drop-shadow-md">
           Premium Food Delivery & Dining
         </p>
       </div>
