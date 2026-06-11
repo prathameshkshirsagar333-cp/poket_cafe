@@ -22,14 +22,8 @@ export default function Hero() {
       {/* Dark gradient overlay to enhance the night-time aesthetic and make the neon pop */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-[#FCFBF8]/30 pointer-events-none" />
       
-      {/* Centered POKET CAFE Title */}
+      {/* Centered tagline/description */}
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto flex flex-col items-center justify-center">
-        <h1 
-          className="text-white font-black text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-widest uppercase filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)] animate-fade-in-up"
-          style={{ fontFamily: "var(--font-serif)" }}
-        >
-          Poket Cafe
-        </h1>
         <p className="text-cafe-secondary text-sm sm:text-base md:text-lg font-bold tracking-widest uppercase mt-4 max-w-md drop-shadow-md">
           Premium Food Delivery & Dining
         </p>
