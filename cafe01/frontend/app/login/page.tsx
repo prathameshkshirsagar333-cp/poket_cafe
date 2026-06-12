@@ -184,27 +184,50 @@ function LoginPageContent() {
             <div className={`transition-all duration-500 transform ${step === 'OTP' ? 'translate-x-0' : 'translate-x-0'}`}>
               
               {/* Header */}
-              <div className="mb-10 text-left">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-2xl bg-cafe-primary/10 flex items-center justify-center text-cafe-primary">
-                    {step === "LOGIN" ? <FaLock className="text-xl" /> : <FaShieldAlt className="text-xl" />}
+              {step === "LOGIN" ? (
+                <div className="mb-10 text-left">
+                  <div className="flex items-center gap-3 mb-5">
+                    <div className="relative h-12 w-12 rounded-2xl overflow-hidden border-2 border-cafe-secondary/40 shadow-[0_4px_12px_rgba(197,160,89,0.2)]">
+                      <img 
+                        src="/poket_cafe_logo.png" 
+                        alt="Poket Cafe Logo" 
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="font-serif font-bold text-cafe-dark text-lg leading-none tracking-wider uppercase">
+                        Poket
+                      </span>
+                      <span className="font-sans font-semibold text-cafe-secondary text-[10px] tracking-[0.2em] uppercase leading-tight">
+                        Cafe
+                      </span>
+                    </div>
                   </div>
-                  {step === "OTP" && (
-                     <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-[11px] font-bold uppercase tracking-wider">
-                        Security Step
-                     </span>
-                  )}
+                  <h1 className="text-3xl font-serif font-extrabold text-cafe-dark tracking-tight leading-tight mb-2 animate-fade-in">
+                    Sign In to Account<span className="text-cafe-secondary">.</span>
+                  </h1>
+                  <p className="text-gray-500 font-medium text-[14px]">
+                    Access your secure reservation dashboard & orders.
+                  </p>
                 </div>
-                <h1 className="text-[36px] leading-tight font-serif font-bold text-cafe-dark mb-2 tracking-tight">
-                  {step === "LOGIN" ? "Welcome Back" : "Verify It's You"}<span className="text-cafe-secondary">.</span>
-                </h1>
-                <p className="text-gray-500 font-medium text-[15px]">
-                  {step === "LOGIN" 
-                    ? "Sign in to your account to view your reservations." 
-                    : `We've sent a security code to ${getValues("email").replace(/(.{3})(.*)(?=@)/, (gp1, gp2, gp3) => gp2 + "*".repeat(gp3.length))}`
-                  }
-                </p>
-              </div>
+              ) : (
+                <div className="mb-10 text-left">
+                  <div className="flex items-center gap-3 mb-5">
+                    <div className="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 shadow-sm">
+                      <FaShieldAlt className="text-xl animate-pulse" />
+                    </div>
+                    <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold uppercase tracking-wider">
+                      Security Step
+                    </span>
+                  </div>
+                  <h1 className="text-3xl font-serif font-extrabold text-cafe-dark tracking-tight leading-tight mb-2">
+                    Verify It's You<span className="text-cafe-secondary">.</span>
+                  </h1>
+                  <p className="text-gray-500 font-medium text-[14px]">
+                    We've sent a security code to <span className="font-semibold text-cafe-dark">{getValues("email").replace(/(.{3})(.*)(?=@)/, (gp1, gp2, gp3) => gp2 + "*".repeat(gp3.length))}</span>
+                  </p>
+                </div>
+              )}
 
               {/* Error/Success Messages */}
               {(serverError || successMsg) && (
@@ -231,7 +254,8 @@ function LoginPageContent() {
                     <label className="block text-[13px] font-bold text-cafe-dark mb-2 uppercase tracking-wider transition-colors group-focus-within/input:text-cafe-secondary">
                       Email Address
                     </label>
-                    <div className="relative">
+                    <div className="relative group/field">
+                      <FaEnvelope className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within/field:text-cafe-secondary transition-colors" />
                       <input
                         type="email"
                         placeholder="hello@example.com"
@@ -239,8 +263,8 @@ function LoginPageContent() {
                           required: "Email is required",
                           pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: "Invalid email" },
                         })}
-                        className={`w-full px-5 py-3.5 text-[15px] bg-gray-50/50 border-2 rounded-xl outline-none transition-all duration-300
-                          ${errors.email ? "border-rose-300" : "border-gray-100 focus:border-cafe-secondary focus:bg-white hover:border-gray-200"}
+                        className={`w-full pl-12 pr-5 py-3.5 text-[15px] bg-gray-50/50 border-2 rounded-xl outline-none transition-all duration-300
+                          ${errors.email ? "border-rose-300" : "border-gray-100 focus:border-cafe-secondary focus:bg-white hover:border-gray-200 focus:shadow-[0_0_0_4px_rgba(197,160,89,0.15)]"}
                         `}
                       />
                     </div>
@@ -253,7 +277,8 @@ function LoginPageContent() {
                         Password
                       </label>
                     </div>
-                    <div className="relative">
+                    <div className="relative group/field">
+                      <FaLock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within/field:text-cafe-secondary transition-colors" />
                       <input
                         type={showPassword ? "text" : "password"}
                         placeholder="••••••••"
@@ -261,14 +286,14 @@ function LoginPageContent() {
                           required: "Password is required",
                           minLength: { value: 6, message: "Min. 6 chars" },
                         })}
-                        className={`w-full pl-5 pr-12 py-3.5 text-[15px] bg-gray-50/50 border-2 rounded-xl outline-none transition-all duration-300
-                          ${errors.password ? "border-rose-300" : "border-gray-100 focus:border-cafe-secondary focus:bg-white hover:border-gray-200"}
+                        className={`w-full pl-12 pr-12 py-3.5 text-[15px] bg-gray-50/50 border-2 rounded-xl outline-none transition-all duration-300
+                          ${errors.password ? "border-rose-300" : "border-gray-100 focus:border-cafe-secondary focus:bg-white hover:border-gray-200 focus:shadow-[0_0_0_4px_rgba(197,160,89,0.15)]"}
                         `}
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 p-1.5 text-gray-400 hover:text-cafe-dark"
+                        className="absolute right-4 top-1/2 -translate-y-1/2 p-1.5 text-gray-400 hover:text-cafe-dark transition-colors"
                       >
                         {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
                       </button>
@@ -279,7 +304,7 @@ function LoginPageContent() {
                   <button
                     type="submit"
                     disabled={!isValid || isLoading}
-                    className="group relative w-full overflow-hidden rounded-xl bg-gradient-to-tr from-cafe-primary to-amber-900 text-white font-bold tracking-widest uppercase text-[14px] py-4 mt-4 shadow-lg hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-70"
+                    className="group relative w-full overflow-hidden rounded-xl bg-gradient-to-tr from-cafe-primary to-amber-900 text-white font-bold tracking-widest uppercase text-[14px] py-4 mt-4 shadow-lg hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed shadow-[0_10px_20px_-10px_rgba(92,64,51,0.4)]"
                   >
                     <span className="relative z-20 flex items-center justify-center gap-3">
                       {isLoading ? (
@@ -302,7 +327,7 @@ function LoginPageContent() {
                         <button 
                           type="button" 
                           onClick={() => signIn("google", { callbackUrl: "/" })}
-                          className="w-full flex items-center justify-center gap-3 bg-white border-2 border-gray-100 rounded-xl py-3 hover:bg-gray-50 transition-all"
+                          className="w-full flex items-center justify-center gap-3 bg-white border-2 border-gray-100 rounded-xl py-3 hover:bg-gray-50 hover:border-gray-200 hover:shadow-sm transition-all duration-300"
                         >
                           <FcGoogle className="text-xl" />
                           <span className="text-[13px] font-bold text-gray-600">Google</span>
@@ -406,17 +431,17 @@ function LoginPageContent() {
                <FaCoffee className="text-2xl" />
             </div>
 
-            <div className="mt-auto max-w-[90%] pb-8">
-              <div className="flex gap-1 mb-4">
+            <div className="mt-auto max-w-[95%] bg-black/45 backdrop-blur-md border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in-up">
+              <div className="flex gap-1 mb-3">
                 {[1,2,3,4,5].map(i => (
-                  <svg key={i} className="w-5 h-5 text-amber-400 drop-shadow-md" fill="currentColor" viewBox="0 0 20 20">
+                  <svg key={i} className="w-5.5 h-5.5 text-amber-400 drop-shadow-md" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>
                 ))}
               </div>
-              <h3 className="text-2xl font-serif font-bold mb-2">Secure Experience</h3>
-              <p className="opacity-80 font-medium leading-relaxed">
-                We've added an extra layer of security to keep your coffee moments private and safe.
+              <h3 className="text-xl font-serif font-bold mb-1.5 text-white">Secure & Seamless</h3>
+              <p className="opacity-90 text-[13px] font-medium leading-relaxed text-gray-150">
+                Enjoy complete peace of mind with our two-step authentication, protecting your dining profile and reservations.
               </p>
             </div>
           </div>

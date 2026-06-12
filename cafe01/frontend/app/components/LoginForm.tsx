@@ -109,11 +109,11 @@ export default function LoginForm() {
   return (
     <div className="w-full max-w-md mx-auto p-8 bg-white rounded-3xl shadow-2xl border border-gray-100 transition-all duration-500 min-h-[480px] flex flex-col justify-center">
       <h2 className="text-3xl font-serif font-bold text-cafe-dark mb-2 text-center">
-        {step === "LOGIN" ? "Welcome Back" : "Two-Step Authentication"}
+        {step === "LOGIN" ? "Sign In" : "Two-Step Authentication"}
       </h2>
       <p className="text-gray-500 text-center mb-8 text-sm">
         {step === "LOGIN"
-          ? "Enter your existing details to login securely"
+          ? "Enter your credentials to access your dashboard & orders"
           : "Please check your inbox for an authorization code"}
       </p>
 
