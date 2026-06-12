@@ -405,7 +405,7 @@ function LoginPageContent() {
               {step === "LOGIN" && (
                 <div className="pt-8 text-center">
                   <p className="text-[14px] text-gray-500 font-medium">
-                    New to Brew&apos;s Cafe?{" "}
+                    New to Poket Cafe?{" "}
                     <Link href="/signup" className="text-cafe-secondary font-bold hover:text-cafe-primary transition-all">
                       Create an account
                     </Link>

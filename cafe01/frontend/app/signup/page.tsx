@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import {
-  FaArrowRight, FaSpinner, FaEye, FaEyeSlash, FaCoffee,
+  FaArrowRight, FaSpinner, FaEye, FaEyeSlash, FaCoffee, FaUser, FaEnvelope, FaLock,
 } from "react-icons/fa";
 
 type SignupForm = {
@@ -177,12 +177,29 @@ export default function SignupPage() {
           <div className="w-full max-w-[380px] mx-auto mt-12 md:mt-2">
             
             {/* Header */}
-            <div className="mb-8 text-left">
-              <h1 className="text-[36px] leading-[1.1] font-serif font-bold text-cafe-dark mb-2 tracking-tight">
+            <div className="mb-8 text-left animate-fade-in">
+              <div className="flex items-center gap-3 mb-5">
+                <div className="relative h-12 w-12 rounded-2xl overflow-hidden border-2 border-cafe-secondary/40 shadow-[0_4px_12px_rgba(197,160,89,0.2)]">
+                  <img 
+                    src="/poket_cafe_logo.png" 
+                    alt="Poket Cafe Logo" 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-serif font-bold text-cafe-dark text-lg leading-none tracking-wider uppercase">
+                    Poket
+                  </span>
+                  <span className="font-sans font-semibold text-cafe-secondary text-[10px] tracking-[0.2em] uppercase leading-tight">
+                    Cafe
+                  </span>
+                </div>
+              </div>
+              <h1 className="text-3xl font-serif font-extrabold text-cafe-dark tracking-tight leading-tight mb-2">
                 Create Account<span className="text-cafe-secondary">.</span>
               </h1>
               <p className="text-gray-500 font-medium text-[14px]">
-                Join Brew&apos;s Cafe today and experience the difference.
+                Join Poket Cafe today and experience the difference.
               </p>
             </div>
 
@@ -208,7 +225,8 @@ export default function SignupPage() {
                   <label className="block text-[12px] font-bold text-cafe-dark mb-1.5 uppercase tracking-wider transition-colors group-focus-within/input:text-cafe-secondary">
                     Full Name
                   </label>
-                  <div className="relative">
+                  <div className="relative group/field">
+                    <FaUser className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within/field:text-cafe-secondary transition-colors" />
                     <input
                       type="text"
                       placeholder="John Doe"
@@ -216,8 +234,8 @@ export default function SignupPage() {
                         required: "Name is required",
                         minLength: { value: 2, message: "Min. 2 characters required" },
                       })}
-                      className={`w-full px-4 py-3 text-[14px] bg-gray-50/50 border-2 rounded-xl outline-none transition-all duration-300 placeholder:text-gray-400
-                      ${errors.name ? "border-rose-300 bg-rose-50/30 focus:border-rose-500 focus:bg-white focus:ring-4 focus:ring-rose-500/10" : "border-gray-100 focus:border-cafe-secondary focus:bg-white focus:ring-4 focus:ring-cafe-secondary/10 hover:border-gray-200"}
+                      className={`w-full pl-12 pr-4 py-3 text-[14px] bg-gray-50/50 border-2 rounded-xl outline-none transition-all duration-300 placeholder:text-gray-400
+                      ${errors.name ? "border-rose-300 bg-rose-50/30 focus:border-rose-500 focus:bg-white focus:ring-4 focus:ring-rose-500/10" : "border-gray-100 focus:border-cafe-secondary focus:bg-white focus:shadow-[0_0_0_4px_rgba(197,160,89,0.15)] hover:border-gray-200"}
                     `}
                     />
                   </div>
@@ -228,7 +246,8 @@ export default function SignupPage() {
                   <label className="block text-[12px] font-bold text-cafe-dark mb-1.5 uppercase tracking-wider transition-colors group-focus-within/input:text-cafe-secondary">
                     Email Address
                   </label>
-                  <div className="relative">
+                  <div className="relative group/field">
+                    <FaEnvelope className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within/field:text-cafe-secondary transition-colors" />
                     <input
                       type="email"
                       placeholder="hello@example.com"
@@ -239,8 +258,8 @@ export default function SignupPage() {
                           message: "Please enter a valid email",
                         },
                       })}
-                      className={`w-full px-4 py-3 text-[14px] bg-gray-50/50 border-2 rounded-xl outline-none transition-all duration-300 placeholder:text-gray-400
-                      ${errors.email ? "border-rose-300 bg-rose-50/30 focus:border-rose-500 focus:bg-white focus:ring-4 focus:ring-rose-500/10" : "border-gray-100 focus:border-cafe-secondary focus:bg-white focus:ring-4 focus:ring-cafe-secondary/10 hover:border-gray-200"}
+                      className={`w-full pl-12 pr-4 py-3 text-[14px] bg-gray-50/50 border-2 rounded-xl outline-none transition-all duration-300 placeholder:text-gray-400
+                      ${errors.email ? "border-rose-300 bg-rose-50/30 focus:border-rose-500 focus:bg-white focus:ring-4 focus:ring-rose-500/10" : "border-gray-100 focus:border-cafe-secondary focus:bg-white focus:shadow-[0_0_0_4px_rgba(197,160,89,0.15)] hover:border-gray-200"}
                     `}
                     />
                   </div>
@@ -252,7 +271,8 @@ export default function SignupPage() {
                     <label className="block text-[12px] font-bold text-cafe-dark mb-1.5 uppercase tracking-wider transition-colors group-focus-within/input:text-cafe-secondary">
                       Password
                     </label>
-                    <div className="relative">
+                    <div className="relative group/field">
+                      <FaLock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within/field:text-cafe-secondary transition-colors" />
                       <input
                         type={showPassword ? "text" : "password"}
                         placeholder="••••••••"
@@ -260,8 +280,8 @@ export default function SignupPage() {
                           required: "Password is required",
                           minLength: { value: 6, message: "Min. 6 chars" },
                         })}
-                        className={`w-full pl-4 pr-10 py-3 text-[14px] bg-gray-50/50 border-2 rounded-xl outline-none transition-all duration-300 placeholder:text-gray-400 placeholder:tracking-[4px] tracking-widest
-                        ${errors.password ? "border-rose-300 bg-rose-50/30 focus:border-rose-500 focus:bg-white focus:ring-4 focus:ring-rose-500/10" : "border-gray-100 focus:border-cafe-secondary focus:bg-white focus:ring-4 focus:ring-cafe-secondary/10 hover:border-gray-200"}
+                        className={`w-full pl-12 pr-10 py-3 text-[14px] bg-gray-50/50 border-2 rounded-xl outline-none transition-all duration-300 placeholder:text-gray-400 placeholder:tracking-[4px] tracking-widest
+                        ${errors.password ? "border-rose-300 bg-rose-50/30 focus:border-rose-500 focus:bg-white focus:ring-4 focus:ring-rose-500/10" : "border-gray-100 focus:border-cafe-secondary focus:bg-white focus:shadow-[0_0_0_4px_rgba(197,160,89,0.15)] hover:border-gray-200"}
                       `}
                       />
                       <button
@@ -280,7 +300,8 @@ export default function SignupPage() {
                     <label className="block text-[12px] font-bold text-cafe-dark mb-1.5 uppercase tracking-wider transition-colors group-focus-within/input:text-cafe-secondary">
                       Confirm Pas.
                     </label>
-                    <div className="relative">
+                    <div className="relative group/field">
+                      <FaLock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within/field:text-cafe-secondary transition-colors" />
                       <input
                         type={showConfirm ? "text" : "password"}
                         placeholder="••••••••"
@@ -288,8 +309,8 @@ export default function SignupPage() {
                           required: "Please confirm",
                           validate: (value) => value === password || "Passwords do not match",
                         })}
-                        className={`w-full pl-4 pr-10 py-3 text-[14px] bg-gray-50/50 border-2 rounded-xl outline-none transition-all duration-300 placeholder:text-gray-400 placeholder:tracking-[4px] tracking-widest
-                        ${errors.confirmPassword ? "border-rose-300 bg-rose-50/30 focus:border-rose-500 focus:bg-white focus:ring-4 focus:ring-rose-500/10" : "border-gray-100 focus:border-cafe-secondary focus:bg-white focus:ring-4 focus:ring-cafe-secondary/10 hover:border-gray-200"}
+                        className={`w-full pl-12 pr-10 py-3 text-[14px] bg-gray-50/50 border-2 rounded-xl outline-none transition-all duration-300 placeholder:text-gray-400 placeholder:tracking-[4px] tracking-widest
+                        ${errors.confirmPassword ? "border-rose-300 bg-rose-50/30 focus:border-rose-500 focus:bg-white focus:ring-4 focus:ring-rose-500/10" : "border-gray-100 focus:border-cafe-secondary focus:bg-white focus:shadow-[0_0_0_4px_rgba(197,160,89,0.15)] hover:border-gray-200"}
                       `}
                       />
                       <button
