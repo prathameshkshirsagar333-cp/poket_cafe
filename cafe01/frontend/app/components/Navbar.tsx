@@ -147,16 +147,10 @@ export default function Navbar() {
                   </div>
                   <div className="p-2 space-y-1">
                     <Link 
-                      href="/admin/orders" 
-                      className="group/item px-4 py-3 text-[14px] font-bold text-gray-600 rounded-xl hover:bg-amber-50 hover:text-cafe-primary flex items-center gap-3 transition-colors"
-                    >
-                      <FaTachometerAlt className="text-gray-400 group-hover/item:text-cafe-secondary/80 transition-colors" /> Admin Dashboard
-                    </Link>
-                    <Link 
                       href="/dashboard" 
                       className="group/item px-4 py-3 text-[14px] font-bold text-gray-600 rounded-xl hover:bg-amber-50 hover:text-cafe-primary flex items-center gap-3 transition-colors"
                     >
-                      <FaTachometerAlt className="text-gray-400 group-hover/item:text-cafe-secondary/80 transition-colors" /> User View
+                      <FaTachometerAlt className="text-gray-400 group-hover/item:text-cafe-secondary/80 transition-colors" /> Dashboard
                     </Link>
                     <Link 
                       href="/orders" 
